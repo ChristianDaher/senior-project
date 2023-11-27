@@ -1,0 +1,3 @@
+# What goes here
+Please only add ideas related to the backend and frontend
+Eg: design ui/ux, apis, flow of pages, authentication and validation...
