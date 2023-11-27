@@ -36,7 +36,7 @@ When contributing, please consider the following categories:
 - Hyperparameter Tuning
 
 #### Model Selection
-- Model Selection Methods (For example, holdout method and k-fold cross-validation. More details can be found [here](./Model%20selection.txt))
+- Model Selection Methods (For example, holdout method and k-fold cross-validation. More details can be found [here](./Model%20selection.md))
 
 #### Other Concepts
 - Loss Functions
