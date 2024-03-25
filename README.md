@@ -1,43 +1,59 @@
 # Senior Project - Terra AI
 
-Welcome to our university's Senior Project repository! This is a collaborative space where we will build, refine, and finalize our project.
+<div align="center" >
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&center=true&vCenter=true&width=435&lines=Terra+AI;Agriculture+Artificial+Intelligence;" alt="Typing SVG" />
+</div>
+<div align="center" >
+  <img src="./public/Terra AI with bg.png">
+</div>
 
-## Contributing
+## 📚 Description
 
-We encourage everyone to contribute their ideas to this project. To keep things organized, we have a designated place for your ideas:
+Welcome to our university's Senior Project repository! This project is a web application built with Laravel and Vue.js.
 
-- Please add all your ideas to the folder named `ideas`.
+## 📋 Prerequisites
 
-Here are the steps to contribute:
+Before you begin, ensure you have met the following requirements:
+
+- **MySQL**: You will need MySQL for the database. You can download it from [here](https://dev.mysql.com/downloads/).
+- **PHP**: This project uses PHP. Ensure you have version 7.3 or later. You can check your version with `php -v` and download PHP from [here](https://www.php.net/downloads.php) if needed.
+- **Composer**: Dependency Management for PHP, version 2.0 or later is required. You can check your version with `composer --version` and download Composer from [here](https://getcomposer.org/download/) if needed.
+- **Node.js & npm**: This project uses Node.js and npm. Ensure you have Node.js version 14.0 or later and npm version 6.0 or later. You can check your versions with `node -v` and `npm -v`. Download Node.js and npm from [here](https://nodejs.org/en/download/) if needed.
+
+## 🚀 Installation
 
 1. Clone the repository
-    ```
-    git clone git@github.com:ChristianDaher/senior-project.git
-    ```
+
+   ```bash
+   git clone git@github.com:ChristianDaher/senior-project.git
+   ```
 
 2. Navigate to the cloned repository
-    ```
-    cd senior-project
-    ```
 
-3. Create a new branch for your contribution
-    ```
-    git checkout -b your-branch-name
-    ```
+   ```bash
+   cd senior-project
+   ```
 
-4. Add your ideas to the `ideas` folder
+3. Install PHP and JavaScript dependencies:
 
-5. Stage and commit your changes
-    ```
-    git add .
-    git commit -m "Your meaningful commit message"
-    ```
+   ```bash
+   composer install
+   npm install
+   ```
 
-6. Push your changes to your branch
-    ```
-    git push origin your-branch-name
-    ```
+4. Copy the example environment file and generate an application key:
 
-7. Open a pull request on GitHub
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-Please ensure your contributions are well-documented and follow any coding standards we've established.
+5. Update the database credentials in your .env file to match your local environment.
+
+6. Run the local development server and compile your assets:
+   ```bash
+   php artisan serve
+   npm run dev
+   ```
+
+You should now be able to access the application at [localhost:8000](http://localhost:8000).
