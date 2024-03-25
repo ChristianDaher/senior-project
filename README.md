@@ -1,4 +1,4 @@
-# Senior Project
+# Senior Project - Terra AI
 
 Welcome to our university's Senior Project repository! This is a collaborative space where we will build, refine, and finalize our project.
 
