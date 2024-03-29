@@ -4,7 +4,7 @@
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&center=true&vCenter=true&width=435&lines=Terra+AI;Agriculture+Artificial+Intelligence;" alt="Typing SVG" />
 </div>
 <div align="center" >
-  <img src="./public/Terra AI with bg.png">
+  <img src="./public/logo-bg.png">
 </div>
 
 ## 📚 Description

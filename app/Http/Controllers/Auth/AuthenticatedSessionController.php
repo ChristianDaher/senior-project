@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -48,5 +51,28 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    public function redirectToGoogle(): RedirectResponse
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback(): RedirectResponse
+    {
+        $user = Socialite::driver('google')->user();
+
+        $user = User::firstOrCreate([
+            'email' => $user->email
+        ], [
+            'name' => $user->name,
+            'provider' => 'google',
+            'email' => $user->email,
+            'password' => Hash::make('password')
+        ]);
+
+        Auth::login($user, true);
+
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 }
