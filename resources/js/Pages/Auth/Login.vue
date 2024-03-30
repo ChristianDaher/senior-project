@@ -1,20 +1,10 @@
 <script setup>
 import Checkbox from "@/Components/Checkbox.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
-import InputError from "@/Components/InputError.vue";
-import InputLabel from "@/Components/InputLabel.vue";
-import PrimaryButton from "@/Components/PrimaryButton.vue";
-import TextInput from "@/Components/TextInput.vue";
+import ButtonPrimary from "@/Components/Buttons/ButtonPrimary.vue";
+import ButtonGooglesignin from "@/Components/Buttons/ButtonGoogleSignin.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
-
-defineProps({
-  canResetPassword: {
-    type: Boolean,
-  },
-  status: {
-    type: String,
-  },
-});
+import { computed } from "vue";
 
 const form = useForm({
   email: "",
@@ -22,77 +12,74 @@ const form = useForm({
   remember: false,
 });
 
-const submit = () => {
+function submit() {
   form.post(route("login"), {
     onFinish: () => form.reset("password"),
   });
-};
+}
+
+const isSigninButtonDisabled = computed(() => {
+  return form.processing || !form.email || !form.password;
+});
 </script>
 
 <template>
   <GuestLayout>
-    <Head title="Log in" />
+    <template #body>
+      <Head title="Log in" />
 
-    <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
-      {{ status }}
-    </div>
-
-    <form @submit.prevent="submit">
-      <div>
-        <InputLabel for="email" value="Email" />
-
-        <TextInput
-          id="email"
-          type="email"
-          class="mt-1 block w-full"
-          v-model="form.email"
-          required
-          autofocus
-          autocomplete="username"
-        />
-
-        <InputError class="mt-2" :message="form.errors.email" />
+      <div class="text-center mb-4">
+        <h1 class="font-bold text-2xl text-accent-100">
+          Log in to your account
+        </h1>
+        <p class="text-secondary-100">Enter your details to proceed further</p>
       </div>
 
-      <div class="mt-4">
-        <InputLabel for="password" value="Password" />
+      <form @submit.prevent="submit">
+        <div class="my-4" :class="{'' :form.hasErrors}">
+          <input
+            type="email"
+            class="block w-full rounded-t-md p-4 border border-disabled-100 outline-none hover:ring-2 active:ring-2 focus:ring-2 hover:ring-accent-200 active:ring-accent-100 focus:ring-accent-100 transition ease-in-out duration-150"
+            v-model="form.email"
+            required
+            autofocus
+            autocomplete="username"
+          />
+          <input
+            id="password"
+            type="password"
+            class="block w-full rounded-b-md p-4 border border-disabled-100 outline-none hover:ring-2 active:ring-2 focus:ring-2 hover:ring-accent-200 active:ring-accent-100 focus:ring-accent-100 transition ease-in-out duration-150"
+            v-model="form.password"
+            required
+            autocomplete="current-password"
+          />
+        </div>
 
-        <TextInput
-          id="password"
-          type="password"
-          class="mt-1 block w-full"
-          v-model="form.password"
-          required
-          autocomplete="current-password"
-        />
-
-        <InputError class="mt-2" :message="form.errors.password" />
-      </div>
-
-      <div class="block mt-4">
-        <label class="flex items-center">
-          <Checkbox name="remember" v-model:checked="form.remember" />
-          <span class="ms-2 text-sm text-gray-600">Remember me</span>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <Checkbox v-model:checked="form.remember" />
+          <span class="text-sm text-secondary-100">Remember me</span>
         </label>
-      </div>
 
-      <div class="flex items-center justify-end mt-4">
-        <Link
-          v-if="canResetPassword"
-          :href="route('password.request')"
-          class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        <ButtonPrimary
+          :class="{ 'bg-disabled-100': isSigninButtonDisabled }"
+          :disabled="isSigninButtonDisabled"
+          class="w-full text-center py-4 my-4"
         >
+          Sign In
+        </ButtonPrimary>
+
+        <p class="text-sm text-secondary-100 text-center">
           Forgot your password?
-        </Link>
-
-        <PrimaryButton
-          class="ms-4"
-          :class="{ 'opacity-25': form.processing }"
-          :disabled="form.processing"
-        >
-          Log in
-        </PrimaryButton>
-      </div>
-    </form>
+          <Link
+            :href="route('password.request')"
+            class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none transition ease-in-out duration-150 font-bold"
+            >Tap here</Link
+          >
+        </p>
+      </form>
+    </template>
+    <template #extras>
+      <ButtonGooglesignin />
+    </template>
   </GuestLayout>
 </template>
