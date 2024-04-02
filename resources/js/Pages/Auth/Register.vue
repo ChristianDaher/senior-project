@@ -43,7 +43,7 @@ const firstErrorMessage = computed(() => {
   <GuestLayout :backRoute="route('welcome')">
     <template #body>
       <Head title="Register" />
-      <div class="text-center mb-12">
+      <div class="text-center mb-16">
         <h1 class="font-bold text-2xl text-accent-100">
           Register for an account
         </h1>
