@@ -1,16 +1,36 @@
+<script setup>
+import { Link } from "@inertiajs/vue3";
+import BackArrowIcon from "@/Components/Icons/BackArrowIcon.vue";
+
+defineProps({
+  backRoute: {
+    type: String,
+    required: false,
+  },
+});
+</script>
+
 <template>
   <div
     class="min-h-screen flex justify-center items-center bg-secondary-100/10 p-8 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300"
   >
-    <slot name="back" />
+    <Link
+      v-if="backRoute"
+      :href="backRoute"
+      class="absolute top-4 left-4 p-1 rounded-full hover:bg-accent-200 outline-none focus:bg-accent-200 custom-transition"
+    >
+      <BackArrowIcon />
+    </Link>
     <div
       class="w-full sm:max-w-xl relative z-1 flex flex-col items-center gap-10"
     >
-      <img
-        class="w-full"
-        src="@/Assets/logo-text-no-bg.png"
-        alt="Terra AI Logo"
-      />
+      <Link :href="route('welcome')" class="block w-full">
+        <img
+          class="w-full"
+          src="@/Assets/logo-text-no-bg.png"
+          alt="Terra AI Logo"
+        />
+      </Link>
       <div
         class="w-full px-6 py-4 bg-base-100 shadow-md rounded-lg border border-disabled-100"
       >

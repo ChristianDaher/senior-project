@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, HomeController, ProfileController};
+use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController};
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 // don't forget verified middleware to check if the email is verified!
 Route::middleware('auth')->group(function () {

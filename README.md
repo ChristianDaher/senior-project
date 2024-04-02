@@ -61,7 +61,7 @@ You should now be able to access the application at [localhost:8000](http://loca
 ## 📝 Todo List
 
 - [x] Login page
-- [ ] Register page
+- [x] Register page
 - [ ] Forgot password page
 - [ ] Reset password page
 - [ ] Welcome page
