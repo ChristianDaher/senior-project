@@ -2,9 +2,10 @@
 import Checkbox from "@/Components/Checkbox.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
 import ButtonPrimary from "@/Components/Buttons/ButtonPrimary.vue";
-import ButtonGooglesignin from "@/Components/Buttons/ButtonGoogleSignin.vue";
+import ButtonGoogleLogin from "@/Components/Buttons/ButtonGoogleLogin.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { computed } from "vue";
+import BackArrowIcon from "@/Components/Icons/BackArrowIcon.vue";
 
 const form = useForm({
   email: "",
@@ -20,13 +21,21 @@ function submit() {
   });
 }
 
-const isSigninButtonDisabled = computed(() => {
+const isLogButtonDisabled = computed(() => {
   return form.processing || !form.email || !form.password;
 });
 </script>
 
 <template>
   <GuestLayout>
+    <template #back>
+      <Link
+        :href="route('home')"
+        class="absolute top-4 left-4 p-1 rounded-full hover:bg-accent-200 custom-transition"
+      >
+        <BackArrowIcon />
+      </Link>
+    </template>
     <template #body>
       <Head title="Log in" />
       <div class="text-center mb-12">
@@ -90,11 +99,11 @@ const isSigninButtonDisabled = computed(() => {
           <span class="text-sm text-secondary-100">Remember me</span>
         </label>
         <ButtonPrimary
-          :class="{ 'bg-disabled-100': isSigninButtonDisabled }"
-          :disabled="isSigninButtonDisabled"
+          :class="{ 'bg-disabled-100': isLogButtonDisabled }"
+          :disabled="isLogButtonDisabled"
           class="w-full text-center py-4 my-4"
         >
-          Sign In
+          Log In
         </ButtonPrimary>
         <p class="text-sm text-secondary-100 text-center">
           Forgot your password?
@@ -107,7 +116,7 @@ const isSigninButtonDisabled = computed(() => {
       </form>
     </template>
     <template #extras>
-      <ButtonGooglesignin />
+      <ButtonGoogleLogin />
     </template>
   </GuestLayout>
 </template>
