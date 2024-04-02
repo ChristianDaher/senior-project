@@ -57,3 +57,14 @@ Before you begin, ensure you have met the following requirements:
    ```
 
 You should now be able to access the application at [localhost:8000](http://localhost:8000).
+
+## 📝 Todo List
+
+- [x] Login page
+- [ ] Register page
+- [ ] Forgot password page
+- [ ] Reset password page
+- [ ] Welcome page
+- [ ] Dashboard page
+- [ ] Settings / Profile page
+- [ ] Admin dashboard page
