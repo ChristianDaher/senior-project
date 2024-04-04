@@ -13,7 +13,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        primary: ["Titillium Web", ...defaultTheme.fontFamily.sans],
+        primary: ["Figtree", ...defaultTheme.fontFamily.sans],
         secondary: ["Open Sans", ...defaultTheme.fontFamily.sans],
       },
       colors: {
