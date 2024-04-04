@@ -6,6 +6,15 @@ import ButtonGoogleLogin from "@/Components/Buttons/ButtonGoogleLogin.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { computed } from "vue";
 
+defineProps({
+  canResetPassword: {
+    type: Boolean,
+  },
+  status: {
+    type: String,
+  },
+});
+
 const form = useForm({
   email: "",
   password: "",
@@ -48,26 +57,32 @@ const firstErrorMessage = computed(() => {
       <form @submit.prevent="submit">
         <div
           class="my-4 rounded-md relative"
-          :class="{ 'ring-2 ring-error-100': firstErrorMessage }"
+          :class="{
+            'ring-2 ring-error-100': firstErrorMessage,
+            'ring-2 ring-accent-100': status,
+          }"
         >
           <div
-            v-show="firstErrorMessage"
-            class="absolute bottom-[calc(100%-2px)] bg-error-100 w-full text-center text-base-100 py-2 border-error-100 ring-2 ring-error-100 rounded-t-md"
+            v-show="firstErrorMessage || status"
+            class="absolute bottom-[calc(100%-2px)] w-full text-center text-base-100 py-2 rounded-t-md"
+            :class="{
+              'ring-2 ring-error-100 bg-error-100 border-error-100': firstErrorMessage,
+              'ring-2 ring-accent-100 bg-accent-100 border-accent-100': status,
+            }"
           >
-            {{ firstErrorMessage }}
+            {{ firstErrorMessage || status }}
           </div>
           <div class="relative">
             <input
               id="email"
               type="email"
               class="peer block w-full rounded-t-md p-4 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
-              :class="{ 'rounded-t-none': firstErrorMessage }"
+              :class="{ 'rounded-t-none': firstErrorMessage || status }"
               v-model="form.email"
               required
               autofocus
               autocomplete="username"
-              @focus="form.clearErrors()"
-              @input="form.clearErrors()"
+              @input="form.clearErrors(), status = ''"
             />
             <label
               for="email"
@@ -84,8 +99,7 @@ const firstErrorMessage = computed(() => {
               v-model="form.password"
               required
               autocomplete="current-password"
-              @focus="form.clearErrors()"
-              @input="form.clearErrors()"
+              @input="form.clearErrors(), status = ''"
             />
             <label
               for="password"
@@ -101,6 +115,7 @@ const firstErrorMessage = computed(() => {
             <span class="text-secondary-100">Remember me</span>
           </label>
           <Link
+            v-if="canResetPassword"
             :href="route('password.request')"
             class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none font-bold custom-transition"
             >Forgot your password?</Link

@@ -70,7 +70,6 @@ const firstErrorMessage = computed(() => {
               required
               autofocus
               autocomplete="name"
-              @focus="form.clearErrors()"
               @input="form.clearErrors()"
             />
             <label
@@ -88,7 +87,6 @@ const firstErrorMessage = computed(() => {
               v-model="form.email"
               required
               autocomplete="username"
-              @focus="form.clearErrors()"
               @input="form.clearErrors()"
             />
             <label
@@ -106,7 +104,6 @@ const firstErrorMessage = computed(() => {
               v-model="form.password"
               required
               autocomplete="current-password"
-              @focus="form.clearErrors()"
               @input="form.clearErrors()"
             />
             <label
@@ -124,7 +121,6 @@ const firstErrorMessage = computed(() => {
               v-model="form.password_confirmation"
               required
               autocomplete="new-password"
-              @focus="form.clearErrors()"
               @input="form.clearErrors()"
             />
             <label
