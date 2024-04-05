@@ -64,7 +64,8 @@ You should now be able to access the application at [localhost:8000](http://loca
 - [x] Register page
 - [x] Forgot password page
 - [x] Reset password page
-- [ ] Fix the email templates more
+- [ ] Fix the email templates more (low)
+- [ ] Verify email page
 - [ ] Welcome page
 - [ ] Dashboard page
 - [ ] Settings / Profile page
