@@ -6,6 +6,7 @@
     @media (prefers-color-scheme: light) {
         :root {
             --color-base-100: 255 255 255;
+            /* --color-base-200: 0 0 0; */
             --color-disabled-100: 204 204 204;
             --color-primary-100: 0 0 0;
             --color-secondary-100: 139 139 139;
@@ -19,6 +20,7 @@
 
     :root[data-theme="light"] {
         --color-base-100: 255 255 255;
+        /* --color-base-200: 0 0 0; */
         --color-disabled-100: 204 204 204;
         --color-primary-100: 0 0 0;
         --color-secondary-100: 139 139 139;
@@ -32,6 +34,7 @@
     @media (prefers-color-scheme: dark) {
         :root {
             --color-base-100: 255 255 255;
+            /* --color-base-200: 0 0 0; */
             --color-disabled-100: 204 204 204;
             --color-primary-100: 0 0 0;
             --color-secondary-100: 139 139 139;
@@ -40,11 +43,22 @@
             --color-accent-300: 0 100 90;
             --color-error-100: 242 7 49;
             --color-error-200: 196 2 35;
+            /* --color-base-100: 30 30 30;
+            --color-base-200: 225 225 225;
+            --color-disabled-100: 51 51 51;
+            --color-primary-100: 255 255 255;
+            --color-secondary-100: 85 85 85;
+            --color-accent-100: 47 185 143;
+            --color-accent-200: 38 156 119;
+            --color-accent-300: 0 76 68;
+            --color-error-100: 196 2 35;
+            --color-error-200: 156 0 28; */
         }
     }
 
     :root[data-theme="dark"] {
         --color-base-100: 255 255 255;
+        /* --color-base-200: 0 0 0; */
         --color-disabled-100: 204 204 204;
         --color-primary-100: 0 0 0;
         --color-secondary-100: 139 139 139;
@@ -53,6 +67,16 @@
         --color-accent-300: 0 100 90;
         --color-error-100: 242 7 49;
         --color-error-200: 196 2 35;
+        /* --color-base-100: 30 30 30;
+        --color-base-200: 225 225 225;
+        --color-disabled-100: 51 51 51;
+        --color-primary-100: 255 255 255;
+        --color-secondary-100: 85 85 85;
+        --color-accent-100: 47 185 143;
+        --color-accent-200: 38 156 119;
+        --color-accent-300: 0 76 68;
+        --color-error-100: 196 2 35;
+        --color-error-200: 156 0 28; */
     }
 }
 

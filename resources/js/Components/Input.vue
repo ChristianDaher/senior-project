@@ -53,7 +53,7 @@ const positionClasses = computed(() => {
       :ref="refObject"
       :id="id"
       :type="type"
-      class="peer block w-full p-4 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
+      class="peer block w-full p-4 bg-base-100 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
       :class="positionClasses"
       v-model="model"
       :autofocus="position === 'first' || position === 'alone'"

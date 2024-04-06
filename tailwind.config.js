@@ -19,6 +19,7 @@ export default {
       colors: {
         base: {
           100: "rgb(var(--color-base-100) / <alpha-value>)",
+          200: "rgb(var(--color-base-200) / <alpha-value>)",
         },
         disabled: {
           100: "rgb(var(--color-disabled-100) / 50)",

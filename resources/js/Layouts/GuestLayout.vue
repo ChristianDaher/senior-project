@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <div
-    class="min-h-screen flex justify-center items-center bg-secondary-100/10 p-8 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300"
+    class="min-h-screen flex justify-center items-center bg-disabled-100/50 p-8 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300"
   >
     <Link
       v-if="backRoute"
