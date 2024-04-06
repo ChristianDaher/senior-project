@@ -1,10 +1,9 @@
 <script setup>
 import Checkbox from "@/Components/Checkbox.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
-import ButtonPrimary from "@/Components/Buttons/ButtonPrimary.vue";
 import ButtonGoogleLogin from "@/Components/Buttons/ButtonGoogleLogin.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
-import { computed } from "vue";
+import Form from "@/Components/Form.vue";
 
 defineProps({
   canResetPassword: {
@@ -21,6 +20,23 @@ const form = useForm({
   remember: false,
 });
 
+const inputs = [
+  {
+    id: "email",
+    type: "email",
+    label: "Email Address",
+    position: "first",
+    autocomplete: "username",
+  },
+  {
+    id: "password",
+    type: "password",
+    label: "Password",
+    position: "last",
+    autocomplete: "current-password",
+  },
+];
+
 function submit() {
   form.post(route("login"), {
     onFinish: () => {
@@ -28,20 +44,6 @@ function submit() {
     },
   });
 }
-
-const isLoginButtonDisabled = computed(() => {
-  return form.processing || !form.email || !form.password;
-});
-
-const firstErrorMessage = computed(() => {
-  if (form.hasErrors) {
-    const firstErrorKey = Object.keys(form.errors)[0];
-    if (firstErrorKey) {
-      return form.errors[firstErrorKey];
-    }
-  }
-  return null;
-});
 </script>
 
 <template>
@@ -54,89 +56,39 @@ const firstErrorMessage = computed(() => {
         </h1>
         <p class="text-secondary-100">Enter your details to proceed further</p>
       </div>
-      <form @submit.prevent="submit">
-        <div
-          class="my-4 rounded-md relative"
-          :class="{
-            'ring-2 ring-error-100': firstErrorMessage,
-            'ring-2 ring-accent-100': status,
-          }"
-        >
-          <div
-            v-show="firstErrorMessage || status"
-            class="absolute bottom-[calc(100%-2px)] w-full text-center text-base-100 py-2 rounded-t-md"
-            :class="{
-              'ring-2 ring-error-100 bg-error-100 border-error-100': firstErrorMessage,
-              'ring-2 ring-accent-100 bg-accent-100 border-accent-100': status,
-            }"
-          >
-            {{ firstErrorMessage || status }}
-          </div>
-          <div class="relative">
-            <input
-              id="email"
-              type="email"
-              class="peer block w-full rounded-t-md p-4 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
-              :class="{ 'rounded-t-none': firstErrorMessage || status }"
-              v-model="form.email"
-              required
-              autofocus
-              autocomplete="username"
-              @input="form.clearErrors(), status = ''"
-            />
-            <label
-              for="email"
-              class="cursor-text text-disabled-100 absolute z-20 top-3 left-4 text-lg peer-focus:top-0 peer-focus:text-sm custom-transition"
-              :class="{ '!top-0 text-sm': form.email }"
-              >Email Address</label
+      <Form
+        @submit="submit"
+        submitText="Log In"
+        :form="form"
+        :inputs="inputs"
+        :status="status"
+        @clearStatus="status = null"
+      >
+        <template #before>
+          <div class="flex items-center justify-between text-sm">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <Checkbox v-model:checked="form.remember" />
+              <span class="text-secondary-100">Remember me</span>
+            </label>
+            <Link
+              v-if="canResetPassword"
+              :href="route('password.request')"
+              class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none font-bold custom-transition"
+              >Forgot your password?</Link
             >
           </div>
-          <div class="relative">
-            <input
-              id="password"
-              type="password"
-              class="peer block w-full rounded-b-md p-4 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
-              v-model="form.password"
-              required
-              autocomplete="current-password"
-              @input="form.clearErrors(), status = ''"
-            />
-            <label
-              for="password"
-              class="cursor-text text-disabled-100 absolute z-20 top-3 left-4 text-lg peer-focus:top-0 peer-focus:text-sm custom-transition"
-              :class="{ '!top-0 text-sm': form.password }"
-              >Password</label
+        </template>
+        <template #after>
+          <p class="text-sm text-secondary-100 text-center">
+            New user?
+            <Link
+              :href="route('register')"
+              class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none font-bold custom-transition"
+              >Sign up</Link
             >
-          </div>
-        </div>
-        <div class="flex items-center justify-between text-sm">
-          <label class="flex items-center gap-2 cursor-pointer">
-            <Checkbox v-model:checked="form.remember" />
-            <span class="text-secondary-100">Remember me</span>
-          </label>
-          <Link
-            v-if="canResetPassword"
-            :href="route('password.request')"
-            class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none font-bold custom-transition"
-            >Forgot your password?</Link
-          >
-        </div>
-        <ButtonPrimary
-          :class="{ 'bg-disabled-100': isLoginButtonDisabled }"
-          :disabled="isLoginButtonDisabled"
-          class="w-full text-center py-4 my-4"
-        >
-          Log In
-        </ButtonPrimary>
-        <p class="text-sm text-secondary-100 text-center">
-          New user?
-          <Link
-            :href="route('register')"
-            class="underline text-accent-200 hover:text-accent-100 focus:text-accent-100 outline-none font-bold custom-transition"
-            >Sign up</Link
-          >
-        </p>
-      </form>
+          </p>
+        </template>
+      </Form>
     </template>
     <template #extras>
       <ButtonGoogleLogin />

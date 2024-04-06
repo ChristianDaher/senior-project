@@ -23,14 +23,13 @@ const verificationLinkSent = computed(
 
 <template>
   <GuestLayout :backRoute="route('profile.edit')">
-    <Head title="Email Verification" />
     <template #body>
+      <Head title="Email Verification" />
       <div class="mb-4 text-sm text-secondary-100">
         Thanks for signing up! Before getting started, could you verify your
         email address by clicking on the link we just emailed to you? If you
         didn't receive the email, we will gladly send you another.
       </div>
-
       <div
         class="mb-4 font-medium text-sm text-accent-100"
         v-if="verificationLinkSent"
@@ -38,7 +37,6 @@ const verificationLinkSent = computed(
         A new verification link has been sent to the email address you provided
         during registration.
       </div>
-
       <form @submit.prevent="submit">
         <div class="mt-4 flex items-center justify-between">
           <ButtonPrimary
@@ -47,7 +45,6 @@ const verificationLinkSent = computed(
           >
             Resend Verification Email
           </ButtonPrimary>
-
           <Link
             :href="route('logout')"
             method="post"
