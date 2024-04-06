@@ -36,6 +36,7 @@ export default {
         },
         error: {
           100: "rgb(var(--color-error-100) / <alpha-value>)",
+          200: "rgb(var(--color-error-200) / <alpha-value>)",
         },
       },
     },

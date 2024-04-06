@@ -79,6 +79,7 @@ function triggeredInput(event, id) {
       </div>
       <Input
         v-for="input in inputs"
+        :refObject="input.ref"
         :key="input.id"
         :id="input.id"
         :type="input.type"
@@ -90,19 +91,27 @@ function triggeredInput(event, id) {
       />
     </div>
     <slot name="before" />
-    <div
-      :class="buttonStyle === 'end' ? 'flex items-center justify-end mt-4' : ''"
-    >
-      <ButtonPrimary
+    <slot name="main">
+      <div
+      v-if="buttonStyle !== 'none'"
         :class="{
-          'bg-disabled-100': isButtonDisabled,
-          'w-full text-center py-4 my-4': buttonStyle === 'default',
+          'flex items-center mt-4':
+            buttonStyle === 'end' || buttonStyle === 'start',
+          'justify-end': buttonStyle === 'end',
+          'justify-start': buttonStyle === 'start',
         }"
-        :disabled="isButtonDisabled"
       >
-        {{ submitText }}
-      </ButtonPrimary>
-    </div>
+        <ButtonPrimary
+          :class="{
+            'bg-disabled-100': isButtonDisabled,
+            'w-full text-center py-4 my-4': buttonStyle === 'default',
+          }"
+          :disabled="isButtonDisabled"
+        >
+          {{ submitText }}
+        </ButtonPrimary>
+      </div>
+    </slot>
     <slot name="after" />
   </form>
 </template>

@@ -13,6 +13,7 @@
             --color-accent-200: 47 185 143;
             --color-accent-300: 0 100 90;
             --color-error-100: 242 7 49;
+            --color-error-200: 196 2 35;
         }
     }
 
@@ -25,6 +26,7 @@
         --color-accent-200: 47 185 143;
         --color-accent-300: 0 100 90;
         --color-error-100: 242 7 49;
+        --color-error-200: 196 2 35;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -37,6 +39,7 @@
             --color-accent-200: 47 185 143;
             --color-accent-300: 0 100 90;
             --color-error-100: 242 7 49;
+            --color-error-200: 196 2 35;
         }
     }
 
@@ -49,6 +52,7 @@
         --color-accent-200: 47 185 143;
         --color-accent-300: 0 100 90;
         --color-error-100: 242 7 49;
+        --color-error-200: 196 2 35;
     }
 }
 
