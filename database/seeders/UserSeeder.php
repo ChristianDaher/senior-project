@@ -17,24 +17,18 @@ class UserSeeder extends Seeder
         try {
             User::factory()->create([
                 'name' => 'Test Admin',
+                'username' => 'TheBestAdmin',
                 'email' => 'test@admin.com',
                 'is_admin' => true,
             ]);
 
             User::factory()->create([
-                'name' => 'Test User 1',
-                'email' => 'test@user1.com',
+                'name' => 'Test User',
+                'username' => 'TheBestUser',
+                'email' => 'test@user.com',
             ]);
 
-            User::factory()->create([
-                'name' => 'Test User 2',
-                'email' => 'test@user2.com',
-            ]);
-
-            User::factory()->create([
-                'name' => 'Test User 3',
-                'email' => 'test@user3.com',
-            ]);
+            User::factory()->count(25)->create();
             
         } catch (\Exception $e) {
             dump('Failed to create users: ' . $e->getMessage());

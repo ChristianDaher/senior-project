@@ -16,6 +16,7 @@ const user = usePage().props.auth.user;
 
 const form = useForm({
   name: user.name,
+  username: user.username,
   email: user.email,
 });
 
@@ -23,16 +24,23 @@ const inputs = [
   {
     id: "name",
     type: "text",
-    label: "Name",
+    label: "Full Name",
     position: "first",
     autocomplete: "name",
+  },
+  {
+    id: "username",
+    type: "text",
+    label: "Username",
+    position: "middle",
+    autocomplete: "nickname",
   },
   {
     id: "email",
     type: "email",
     label: "Email Address",
     position: "last",
-    autocomplete: "email",
+    autocomplete: "username",
   },
 ];
 

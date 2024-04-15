@@ -8,6 +8,7 @@ import Form from "@/Components/Form.vue";
 
 const form = useForm({
   name: "",
+  username: "",
   email: "",
   password: "",
   password_confirmation: "",
@@ -17,9 +18,16 @@ const inputs = [
   {
     id: "name",
     type: "text",
-    label: "Name",
+    label: "Full Name",
     position: "first",
     autocomplete: "name",
+  },
+  {
+    id: "username",
+    type: "text",
+    label: "Username (eg: ChrisTheGardener420)",
+    position: "middle",
+    autocomplete: "nickname",
   },
   {
     id: "email",

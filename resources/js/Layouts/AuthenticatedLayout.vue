@@ -53,7 +53,7 @@ const showingNavigationDropdown = ref(false);
                         type="button"
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-secondary-100 bg-base-100 hover:text-primary-100/75 focus:outline-none custom-transition"
                       >
-                        {{ $page.props.auth.user.name }}
+                        {{ $page.props.auth.user.username }}
                         <IconDownArrowHead class="ms-2 -me-0.5 h-4 w-4" />
                       </button>
                     </span>
@@ -112,7 +112,7 @@ const showingNavigationDropdown = ref(false);
           <div class="pt-4 pb-1 border-t border-gray-100">
             <div class="px-4">
               <div class="font-medium text-base text-primary-100">
-                {{ $page.props.auth.user.name }}
+                {{ $page.props.auth.user.username }}
               </div>
               <div class="font-medium text-sm text-secondary-100">
                 {{ $page.props.auth.user.email }}

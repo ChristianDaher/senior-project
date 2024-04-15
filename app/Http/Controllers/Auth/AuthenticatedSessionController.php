@@ -66,6 +66,7 @@ class AuthenticatedSessionController extends Controller
             'email' => $user->email
         ], [
             'name' => $user->name,
+            'username' => 'user' . $user->id,
             'provider' => 'google',
             'email' => $user->email,
             'password' => Hash::make('password')
