@@ -1,22 +1,12 @@
 <script setup>
 import { Head, Link } from "@inertiajs/vue3";
 import Landing from "@/Pages/Welcome/Partials/Landing.vue";
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
 </script>
 
 <template>
   <Head title="Welcome" />
   <nav class="bg-transparent fixed z-50 w-screen p-4">
-    <div class="flex items-center justify-between container text-base-100">
-      <img
-        src="@/Assets/logo-no-bg.png"
-        alt="Terra AI Logo"
-        class="block h-9 w-auto cursor-pointer"
-        @click="scrollToTop()"
-      />
+    <div class="flex items-center justify-end container text-base-100">
       <div class="flex items-center gap-4">
         <Link
           v-if="$page.props.auth.user"
