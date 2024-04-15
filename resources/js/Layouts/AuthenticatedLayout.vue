@@ -35,6 +35,13 @@ const showingNavigationDropdown = ref(false);
                 >
                   Dashboard
                 </NavLink>
+                <NavLink
+                  v-if="$page.props.auth.user.is_admin"
+                  :href="route('admin-dashboard')"
+                  :active="route().current('admin-dashboard')"
+                >
+                  Admin Dashboard
+                </NavLink>
               </div>
             </div>
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -93,6 +100,13 @@ const showingNavigationDropdown = ref(false);
               :active="route().current('dashboard')"
             >
               Dashboard
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              v-if="$page.props.auth.user.is_admin"
+              :href="route('admin-dashboard')"
+              :active="route().current('admin-dashboard')"
+            >
+              Admin Dashboard
             </ResponsiveNavLink>
           </div>
           <div class="pt-4 pb-1 border-t border-gray-100">
