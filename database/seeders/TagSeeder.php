@@ -21,6 +21,13 @@ class TagSeeder extends Seeder
             ['title' => 'I want to learn', 'color' => '#00FF00'],
         ];
 
+        $now = now();
+        
+        foreach ($tags as &$tag) {
+            $tag['created_at'] = $now;
+            $tag['updated_at'] = $now;
+        }
+
         Tag::insert($tags);
     }
 }

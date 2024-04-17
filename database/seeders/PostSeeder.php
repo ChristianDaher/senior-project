@@ -28,6 +28,13 @@ class PostSeeder extends Seeder
             ],
         ];
 
+        $now = now();
+        
+        foreach ($posts as &$post) {
+            $post['created_at'] = $now;
+            $post['updated_at'] = $now;
+        }
+
         Post::insert($posts);
     }
 }

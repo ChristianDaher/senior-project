@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Post extends Model
 {
@@ -15,8 +16,8 @@ class Post extends Model
         'image_url',
     ];
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class, 'post_tag');
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 }

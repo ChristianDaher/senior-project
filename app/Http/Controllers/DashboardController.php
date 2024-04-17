@@ -12,8 +12,6 @@ class DashboardController extends Controller
     {
         $posts = Post::with('tags')->get();
 
-        dd($posts);
-
         return Inertia::render('Dashboard', [
             'posts' => $posts,
         ]);

@@ -36,6 +36,13 @@ class PostTagSeeder extends Seeder
             ],
         ];
 
+        $now = now();
+
+        foreach ($postTags as &$postTag) {
+            $postTag['created_at'] = $now;
+            $postTag['updated_at'] = $now;
+        }
+
         DB::table('post_tag')->insert($postTags);
     }
 }
