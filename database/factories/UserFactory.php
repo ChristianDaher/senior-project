@@ -46,4 +46,19 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    public function deleted(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'deleted_at' => $attributes['created_at'],
+        ]);
+    }
+
+    public function old(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'created_at' => now()->subDays(30),
+            'updated_at' => now()->subDays(30),
+        ]);
+    }
 }

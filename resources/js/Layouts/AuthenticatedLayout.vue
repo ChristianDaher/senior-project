@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
           <div class="flex justify-between h-16">
             <div class="flex">
               <div class="shrink-0 flex items-center">
-                <Link :href="route('dashboard')">
+                <Link :href="route('welcome')">
                   <img
                     src="@/Assets/logo-bg.png"
                     alt="Terra AI Logo"

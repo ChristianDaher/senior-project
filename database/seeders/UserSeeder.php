@@ -27,11 +27,14 @@ class UserSeeder extends Seeder
                 'username' => 'TheBestUser',
                 'email' => 'test@user.com',
             ]);
-
-            User::factory()->count(25)->create();
-            
         } catch (\Exception $e) {
-            dump('Failed to create users: ' . $e->getMessage());
+            dump('Failed to create default users: ' . $e->getMessage());
         }
+
+        User::factory()->count(25)->create();
+        User::factory()->count(5)->deleted()->create();
+        User::factory()->count(5)->unverified()->create();
+        User::factory()->count(5)->old()->create();
+        User::factory()->count(5)->old()->deleted()->create();
     }
 }
