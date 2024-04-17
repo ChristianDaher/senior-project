@@ -123,4 +123,7 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'api_url' => env('API_URL', 'http://localhost:5000'),
+
+    'google_api_key' => env('GOOGLE_API_KEY'),
 ];
