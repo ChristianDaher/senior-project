@@ -61,4 +61,11 @@ class UserFactory extends Factory
             'updated_at' => now()->subDays(30),
         ]);
     }
+
+    public function provider(string $provider): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'provider' => $provider,
+        ]);
+    }
 }

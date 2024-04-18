@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class AdminController extends Controller
@@ -14,6 +15,13 @@ class AdminController extends Controller
         $newlyRegisteredUsersCount = User::whereBetween('created_at', [now()->subWeek(), now()])->count();
         $newlyDeletedUsersCount = User::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
         $newUsersCount = $newlyRegisteredUsersCount - $newlyDeletedUsersCount;
+        $userCountGroupedByProvider = User::select('provider', DB::raw('count(*) as total'))
+            ->groupBy('provider')
+            ->get()
+            ->pluck('total', 'provider')
+            ->mapWithKeys(function ($value, $key) {
+                return [$key ?: 'The Application' => $value];
+            });
 
         // $totalPostsCount = Post::count();
         // $newlyCreatedPostsCount = Post::whereBetween('created_at', [now()->subWeek(), now()])->count();
@@ -38,6 +46,7 @@ class AdminController extends Controller
                     'title' => 'Total Users',
                     'stat' => $totalUsersCount,
                     'change' => $newUsersCount,
+                    'providers' => $userCountGroupedByProvider,
                 ],
                 'posts' => [
                     'title' => 'Total Posts',

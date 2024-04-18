@@ -31,7 +31,8 @@ class UserSeeder extends Seeder
             dump('Failed to create default users: ' . $e->getMessage());
         }
 
-        User::factory()->count(1200)->old()->create();
+        User::factory()->count(900)->old()->create();
+        User::factory()->count(300)->old()->provider('Google')->create();
         User::factory()->count(150)->create();
         User::factory()->count(60)->old()->deleted()->create();
         User::factory()->count(12)->deleted()->create();
