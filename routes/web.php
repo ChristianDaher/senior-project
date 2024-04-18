@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController};
+use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, UserController, PostController, PromptController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -14,8 +14,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
-    Route::middleware('can:admin')->group(function () {
-        Route::get('/admin-dashboard', [AdminController::class, 'index'])->name('admin-dashboard');
+    Route::middleware('can:admin')->prefix('/admin')->name('admin.')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+        Route::resources([
+            'users' => UserController::class,
+            'posts' => PostController::class,
+            'prompts' => PromptController::class
+        ]);
     });
 });
 

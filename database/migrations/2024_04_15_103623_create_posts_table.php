@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('total_stars')->default(0);
             $table->integer('total_comments')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

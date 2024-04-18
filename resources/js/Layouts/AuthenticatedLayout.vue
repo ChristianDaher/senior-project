@@ -5,9 +5,7 @@ import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
-import IconDownArrowHead from "@/Components/Icons/IconDownArrowHead.vue";
-import IconHamburgerMenu from "@/Components/Icons/IconHamburgerMenu.vue";
-import IconX from "@/Components/Icons/IconX.vue";
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from "@heroicons/vue/24/solid";
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -37,8 +35,8 @@ const showingNavigationDropdown = ref(false);
                 </NavLink>
                 <NavLink
                   v-if="$page.props.auth.user.is_admin"
-                  :href="route('admin-dashboard')"
-                  :active="route().current('admin-dashboard')"
+                  :href="route('admin.dashboard')"
+                  :active="route().current('admin.dashboard')"
                 >
                   Admin Dashboard
                 </NavLink>
@@ -54,7 +52,7 @@ const showingNavigationDropdown = ref(false);
                         class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-secondary-100 bg-base-100 hover:text-primary-100/75 focus:outline-none custom-transition"
                       >
                         {{ $page.props.auth.user.username }}
-                        <IconDownArrowHead class="ms-2 -me-0.5 h-4 w-4" />
+                        <ChevronDownIcon class="ms-2 -me-0.5 h-4 w-4" />
                       </button>
                     </span>
                   </template>
@@ -78,8 +76,8 @@ const showingNavigationDropdown = ref(false);
                 @click="showingNavigationDropdown = !showingNavigationDropdown"
                 class="inline-flex items-center justify-center p-2 rounded-md text-secondary-100 hover:text-primary-100/50 hover:bg-disabled-100/50 focus:outline-none focus:bg-disabled-100/75 focus:text-primary-100/75 custom-transition"
               >
-                <IconX class="w-6 h-6" v-show="showingNavigationDropdown" />
-                <IconHamburgerMenu
+                <XMarkIcon class="w-6 h-6" v-show="showingNavigationDropdown" />
+                <Bars3Icon
                   class="w-6 h-6"
                   v-show="!showingNavigationDropdown"
                 />
@@ -103,8 +101,8 @@ const showingNavigationDropdown = ref(false);
             </ResponsiveNavLink>
             <ResponsiveNavLink
               v-if="$page.props.auth.user.is_admin"
-              :href="route('admin-dashboard')"
-              :active="route().current('admin-dashboard')"
+              :href="route('admin.dashboard')"
+              :active="route().current('admin.dashboard')"
             >
               Admin Dashboard
             </ResponsiveNavLink>

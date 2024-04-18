@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import IconBackArrow from "@/Components/Icons/IconBackArrow.vue";
+import { ArrowLeftIcon } from '@heroicons/vue/24/solid'
 
 defineProps({
   backRoute: {
@@ -19,7 +19,7 @@ defineProps({
       :href="backRoute"
       class="absolute top-4 left-4 p-1 rounded-full hover:bg-accent-200 outline-none focus:bg-accent-200 custom-transition"
     >
-      <IconBackArrow />
+      <ArrowLeftIcon class="h-6 w-6 text-white" />
     </Link>
     <div
       class="w-full sm:max-w-xl relative z-1 flex flex-col items-center gap-10"

@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
             dump('Failed to create default users: ' . $e->getMessage());
         }
 
-        User::factory()->count(25)->create();
-        User::factory()->count(5)->deleted()->create();
-        User::factory()->count(5)->unverified()->create();
-        User::factory()->count(5)->old()->create();
-        User::factory()->count(5)->old()->deleted()->create();
+        User::factory()->count(1200)->old()->create();
+        User::factory()->count(150)->create();
+        User::factory()->count(60)->old()->deleted()->create();
+        User::factory()->count(12)->deleted()->create();
+        User::factory()->count(15)->unverified()->create();
     }
 }
