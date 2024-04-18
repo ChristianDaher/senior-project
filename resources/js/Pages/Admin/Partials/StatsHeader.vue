@@ -72,7 +72,7 @@ const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon];
             <div class="text-sm">
               <Link
                 :href="route(`admin.${key}.index`)"
-                class="font-medium text-accent-100 hover:text-accent-300"
+                class="font-medium text-accent-100 hover:text-accent-300 hover:underline custom-transition"
                 >View all<span class="sr-only">
                   {{ value.title }} stats</span
                 ></Link
