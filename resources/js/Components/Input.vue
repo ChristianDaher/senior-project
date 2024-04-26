@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import { computed } from "vue";
 
 defineEmits(["input"]);
@@ -49,7 +48,20 @@ const positionClasses = computed(() => {
 </script>
 <template>
   <div class="relative">
+    <textarea
+      v-if="type === 'textarea'"
+      :ref="refObject"
+      :id="id"
+      class="peer block w-full p-4 bg-base-100 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
+      :class="positionClasses"
+      v-model="model"
+      :autofocus="position === 'first' || position === 'alone'"
+      required
+      :autocomplete="autocomplete"
+      @input="$emit('input')"
+    />
     <input
+      v-else
       :ref="refObject"
       :id="id"
       :type="type"

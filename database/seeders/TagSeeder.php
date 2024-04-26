@@ -14,11 +14,11 @@ class TagSeeder extends Seeder
     public function run(): void
     {
         $tags = [
-            ['title' => 'Urgent', 'color' => '#FF0000'],
-            ['title' => 'Question', 'color' => '#0000FF'],
-            ['title' => 'Discussion', 'color' => '#FFFF00'],
-            ['title' => 'DIY', 'color' => '#FF00FF'],
-            ['title' => 'I want to learn', 'color' => '#00FF00'],
+            ['title' => 'Urgent', 'color' => '#fa1b3d'],
+            ['title' => 'Question', 'color' => '#0a80ff'],
+            ['title' => 'Discussion', 'color' => '#3c434a'],
+            ['title' => 'DIY', 'color' => '#059e28'],
+            ['title' => 'I want to learn', 'color' => '#02c275'],
         ];
 
         $now = now();
