@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
+import Post from "@/Components/Post.vue";
 
 defineProps({
   posts: {
@@ -22,7 +23,9 @@ defineProps({
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-primary-100">You're logged in!</div>
-          <div class="p-6 text-primary-100">{{ posts }}</div>
+          <div class="p-6 text-primary-100">
+            <Post v-for="post in posts" :key="post.id" :post="post" />
+          </div>
         </div>
       </div>
     </div>

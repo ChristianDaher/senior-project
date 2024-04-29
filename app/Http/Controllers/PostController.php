@@ -6,6 +6,7 @@ use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -24,18 +25,24 @@ class PostController extends Controller
 
     public function store(PostStoreRequest $request)
     {
+        $storage = Storage::getDefaultDriver();
         $image_url = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $filename = time() . '.' . $image->getClientOriginalExtension();
-            $image_url = $image->storeAs('public/images', $filename);
+            $filename = time() . '-' . $image->getClientOriginalName();
+            if ($storage == 'local') {
+                $image_url = $image->storeAs('public/images', $filename);
+                $image_url = str_replace('public/', '/storage/', $image_url);
+            }
+            //fix here in case we use another storage system
         }
 
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->description = $request->input('description');
-        $post->image_url = $image_url;
-        $post->save();
+        $post = Post::create([
+            'user_id' => auth()->user()->id,
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'image_url' => $image_url,
+        ]);
 
         $post->tags()->attach($request->input('tags'));
 
