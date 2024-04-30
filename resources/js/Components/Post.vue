@@ -7,7 +7,7 @@ import {
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/vue/24/outline";
 
-defineProps({
+const props = defineProps({
   post: {
     type: Object,
     required: true,
@@ -16,11 +16,9 @@ defineProps({
 
 const user = usePage().props.auth.user;
 
-function starPost() {
-  
-}
-
-function likePost() {}
+const isPostLiked = user.liked_post_ids.includes(props.post.id);
+const isPostStarred = user.starred_post_ids.includes(props.post.id);
+const isPostCommented = user.commented_post_ids.includes(props.post.id);
 </script>
 
 <template>
@@ -48,14 +46,21 @@ function likePost() {}
       </div>
     </Link>
     <div class="absolute bottom-4 right-4 z-50 flex gap-4">
-      <div
-        @click="starPost"
+      <Link
+        preserve-scroll
+        :href="
+          isPostStarred
+            ? route('posts.unstar', post.id)
+            : route('posts.star', post.id)
+        "
+        :method="isPostStarred ? 'delete' : 'post'"
+        as="button"
         class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
       >
         <StarIcon
           class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
           :class="
-            user.starred_post_ids.includes(post.id)
+            isPostStarred
               ? 'text-yellow-300 fill-yellow-300'
               : 'text-primary-100'
           "
@@ -63,23 +68,28 @@ function likePost() {}
         <span class="text-sm">
           {{ post.total_stars }}
         </span>
-      </div>
-      <div
-        @click="likePost"
+      </Link>
+      <Link
+        preserve-scroll
+        :href="
+          isPostLiked
+            ? route('posts.unlike', post.id)
+            : route('posts.like', post.id)
+        "
+        :method="isPostLiked ? 'delete' : 'post'"
+        as="button"
         class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
       >
         <HeartIcon
           class="w-6 h-6 group-hover:text-red-500 custom-transition"
           :class="
-            user.liked_post_ids.includes(post.id)
-              ? 'text-red-500 fill-red-500'
-              : 'text-primary-100'
+            isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
           "
         />
         <span class="text-sm">
           {{ post.total_likes }}
         </span>
-      </div>
+      </Link>
       <Link
         :href="route('posts.show', post.id)"
         class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
@@ -87,7 +97,7 @@ function likePost() {}
         <ChatBubbleBottomCenterIcon
           class="w-6 h-6 group-hover:text-accent-100 custom-transition"
           :class="
-            user.commented_post_ids.includes(post.id)
+            isPostCommented
               ? 'text-accent-100 fill-accent-100'
               : 'text-primary-100'
           "

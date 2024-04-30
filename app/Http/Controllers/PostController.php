@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Models\Post;
 use App\Models\Tag;
@@ -76,5 +77,61 @@ class PostController extends Controller
 
     public function adminDestroy(string $id)
     {
+    }
+
+    public function like(string $id)
+    {
+        $post = Post::findOrFail($id);
+        try {
+            $post->likes()->attach(auth()->user()->id);
+            $post->increment('total_likes');
+        } catch (\Exception $e) {
+        }
+    }
+
+    public function unlike(string $id)
+    {
+        $post = Post::findOrFail($id);
+        $success = $post->likes()->detach(auth()->user()->id);
+        if ($success) $post->decrement('total_likes');
+    }
+
+    public function star(string $id)
+    {
+        $post = Post::findOrFail($id);
+        try {
+            $post->stars()->attach(auth()->user()->id);
+            $post->increment('total_stars');
+        } catch (\Exception $e) {
+        }
+    }
+
+    public function unstar(string $id)
+    {
+        $post = Post::findOrFail($id);
+        $success = $post->stars()->detach(auth()->user()->id);
+        if ($success) $post->decrement('total_stars');
+    }
+
+    public function comment(CommentRequest $request, string $id)
+    {
+        $post = Post::findOrFail($id);
+        try {
+            $post->comments()->create([
+                'user_id' => auth()->user()->id,
+                'content' => $request->input('content'),
+            ]);
+            $post->increment('total_comments');
+        } catch (\Exception $e) {
+        }
+        return $post;
+    }
+
+    public function uncomment(string $id, string $commentId)
+    {
+        $post = Post::findOrFail($id);
+        $success = $post->comments()->findOrFail($commentId)->delete();
+        if ($success) $post->decrement('total_comments');
+        return $post;
     }
 }

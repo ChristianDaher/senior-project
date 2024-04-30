@@ -57,33 +57,33 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Post::class);
     }
 
-    public function likedPosts(): BelongsToMany
+    public function likes(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'likes');
+        return $this->belongsToMany(Post::class, 'likes')->withTimestamps();
     }
 
     public function likedPostIds(): Collection
     {
-        return $this->likedPosts()->pluck('posts.id');
+        return $this->likes()->pluck('posts.id');
     }
 
-    public function starredPosts(): BelongsToMany
+    public function stars(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'stars');
+        return $this->belongsToMany(Post::class, 'stars')->withTimestamps();
     }
 
     public function starredPostIds(): Collection
     {
-        return $this->starredPosts()->pluck('posts.id');
+        return $this->stars()->pluck('posts.id');
     }
 
-    public function commentedPosts(): BelongsToMany
+    public function comments(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'comments');
+        return $this->belongsToMany(Post::class, 'comments')->withTimestamps();
     }
 
     public function commentedPostIds(): Collection
     {
-        return $this->commentedPosts()->pluck('posts.id');
+        return $this->comments()->pluck('posts.id');
     }
 }
