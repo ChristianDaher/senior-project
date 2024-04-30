@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Collection;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -53,5 +55,35 @@ class User extends Authenticatable implements MustVerifyEmail
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function likedPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'likes');
+    }
+
+    public function likedPostIds(): Collection
+    {
+        return $this->likedPosts()->pluck('posts.id');
+    }
+
+    public function starredPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'stars');
+    }
+
+    public function starredPostIds(): Collection
+    {
+        return $this->starredPosts()->pluck('posts.id');
+    }
+
+    public function commentedPosts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'comments');
+    }
+
+    public function commentedPostIds(): Collection
+    {
+        return $this->commentedPosts()->pluck('posts.id');
     }
 }

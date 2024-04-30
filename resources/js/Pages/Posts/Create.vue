@@ -87,6 +87,20 @@ const firstErrorMessage = computed(() => {
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-primary-100">
             <form @submit.prevent="submit" class="sm:w-3/4">
+              <div class="mb-4">
+                <p class="mb-2 text-primary-100 text-lg">
+                  Choose at least 1 tag
+                </p>
+                <div class="flex item-center flex-wrap gap-4">
+                  <Tag
+                    v-for="tag in tags"
+                    :tag="tag"
+                    :key="tag.id"
+                    :isChecked="form.tags.includes(tag.id)"
+                    @toggleTag="toggleTag(tag.id)"
+                  />
+                </div>
+              </div>
               <Input
                 v-model="form.title"
                 id="tilte"
@@ -103,20 +117,6 @@ const firstErrorMessage = computed(() => {
                 position="last"
                 autocomplete="description"
               />
-              <div class="my-4">
-                <p class="mb-2 text-primary-100 text-lg">
-                  Choose at least 1 tag
-                </p>
-                <div class="flex item-center flex-wrap gap-4">
-                  <Tag
-                    v-for="tag in tags"
-                    :tag="tag"
-                    :key="tag.id"
-                    :isChecked="form.tags.includes(tag.id)"
-                    @toggleTag="toggleTag(tag.id)"
-                  />
-                </div>
-              </div>
               <div
                 class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
               >

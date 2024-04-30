@@ -1,6 +1,6 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import { ArrowLeftIcon } from '@heroicons/vue/24/solid'
+import { ArrowLeftIcon } from "@heroicons/vue/24/solid";
 
 defineProps({
   backRoute: {

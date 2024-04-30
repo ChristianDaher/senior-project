@@ -6,7 +6,7 @@ const props = defineProps({
   },
   isChecked: {
     type: Boolean,
-    required: true,
+    default: false,
   },
 });
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,18 +24,15 @@ class AdminController extends Controller
                 return [$key ?: 'The Application' => $value];
             });
 
-        // $totalPostsCount = Post::count();
-        // $newlyCreatedPostsCount = Post::whereBetween('created_at', [now()->subWeek(), now()])->count();
-        // $newlyDeletedPostsCount = Post::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
-        // $newPostsCount = $newlyCreatedPostsCount - $newlyDeletedPostsCount;
+        $totalPostsCount = Post::count();
+        $newlyCreatedPostsCount = Post::whereBetween('created_at', [now()->subWeek(), now()])->count();
+        $newlyDeletedPostsCount = Post::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
+        $newPostsCount = $newlyCreatedPostsCount - $newlyDeletedPostsCount;
 
         // $totalPromptsCount = Prompt::count();
         // $newlyCreatedPromptsCount = Prompt::whereBetween('created_at', [now()->subWeek(), now()])->count();
         // $newlyDeletedPromptsCount = Prompt::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
         // $newPromptsCount = $newlyCreatedPromptsCount - $newlyDeletedPromptsCount;
-
-        $totalPostsCount = $totalUsersCount * 3;
-        $newPostsCount = $newUsersCount * -2;
 
         $totalPromptsCount = $totalUsersCount * 2;
         $newPromptsCount = $newUsersCount;

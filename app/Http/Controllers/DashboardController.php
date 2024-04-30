@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('tags')->get();
+        $posts = Post::with('tags')->orderByDesc('created_at')->get();
 
         return Inertia::render('Dashboard', [
             'posts' => $posts,

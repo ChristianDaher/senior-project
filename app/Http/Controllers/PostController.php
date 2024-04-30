@@ -51,6 +51,11 @@ class PostController extends Controller
 
     public function show(string $id)
     {
+        $post = Post::findOrFail($id);
+
+        return Inertia::render('Posts/Show', [
+            'post' => $post,
+        ]);
     }
 
     public function edit(string $id)
