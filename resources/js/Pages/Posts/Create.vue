@@ -96,8 +96,9 @@ const firstErrorMessage = computed(() => {
                     v-for="tag in tags"
                     :tag="tag"
                     :key="tag.id"
+                    class="cursor-pointer"
                     :isChecked="form.tags.includes(tag.id)"
-                    @toggleTag="toggleTag(tag.id)"
+                    @click="toggleTag(tag.id)"
                   />
                 </div>
               </div>

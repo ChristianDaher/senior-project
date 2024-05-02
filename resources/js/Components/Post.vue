@@ -52,7 +52,7 @@ async function star() {
 
 <template>
   <div
-    class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 custom-transition cursor-default"
+    class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 custom-transition"
   >
     <img
       v-if="post.image_url"
@@ -62,7 +62,12 @@ async function star() {
     />
     <div class="flex flex-col p-4 leading-normal grow">
       <div class="flex items-center flex-wrap gap-4 mb-2">
-        <Tag v-for="tag in post.tags" :key="tag.id" :tag="tag" />
+        <Tag
+          v-for="tag in post.tags"
+          :key="tag.id"
+          :tag="tag"
+          class="cursor-default"
+        />
       </div>
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-primary-100">
         {{ post.title }}

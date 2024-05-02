@@ -79,7 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function comments(): BelongsToMany
     {
-        return $this->belongsToMany(Post::class, 'comments')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'comments')->withPivot('content')->as('comment')->withTimestamps();
     }
 
     public function commentedPostIds(): Collection
