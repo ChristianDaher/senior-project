@@ -6,6 +6,7 @@ import {
   HeartIcon,
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/vue/24/outline";
+import { ref } from "vue";
 
 const props = defineProps({
   post: {
@@ -16,96 +17,107 @@ const props = defineProps({
 
 const user = usePage().props.auth.user;
 
-const isPostLiked = user.liked_post_ids.includes(props.post.id);
-const isPostStarred = user.starred_post_ids.includes(props.post.id);
-const isPostCommented = user.commented_post_ids.includes(props.post.id);
+const isPostLiked = ref(user.liked_post_ids.includes(props.post.id));
+const isPostStarred = ref(user.starred_post_ids.includes(props.post.id));
+const isPostCommented = ref(user.commented_post_ids.includes(props.post.id));
+
+async function like() {
+  if (isPostLiked.value) {
+    axios.delete(route("posts.unlike", props.post.id)).then(() => {
+      isPostLiked.value = false;
+      props.post.total_likes--;
+    });
+  } else {
+    axios.post(route("posts.like", props.post.id)).then(() => {
+      isPostLiked.value = true;
+      props.post.total_likes++;
+    });
+  }
+}
+
+async function star() {
+  if (isPostStarred.value) {
+    axios.delete(route("posts.unstar", props.post.id)).then(() => {
+      isPostStarred.value = false;
+      props.post.total_stars--;
+    });
+  } else {
+    axios.post(route("posts.star", props.post.id)).then(() => {
+      isPostStarred.value = true;
+      props.post.total_stars++;
+    });
+  }
+}
 </script>
 
 <template>
-  <div class="relative">
-    <Link
-      :href="route('posts.show', post.id)"
-      class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 custom-transition cursor-default"
-    >
-      <img
-        v-if="post.image_url"
-        class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-96 md:rounded-none md:rounded-s-lg"
-        :src="post.image_url"
-        alt="Post Image"
-      />
-      <div class="flex flex-col p-4 leading-normal">
-        <div class="flex items-center flex-wrap gap-4 mb-2">
-          <Tag v-for="tag in post.tags" :key="tag.id" :tag="tag" />
-        </div>
-        <h5 class="mb-2 text-2xl font-bold tracking-tight text-primary-100">
-          {{ post.title }}
-        </h5>
-        <p class="mb-8 font-normal text-secondary-100">
-          {{ post.description }}
-        </p>
+  <div
+    class="flex flex-col bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100 custom-transition cursor-default"
+  >
+    <img
+      v-if="post.image_url"
+      class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-96 md:rounded-none md:rounded-s-lg"
+      :src="post.image_url"
+      alt="Post Image"
+    />
+    <div class="flex flex-col p-4 leading-normal grow">
+      <div class="flex items-center flex-wrap gap-4 mb-2">
+        <Tag v-for="tag in post.tags" :key="tag.id" :tag="tag" />
       </div>
-    </Link>
-    <div class="absolute bottom-4 right-4 z-50 flex gap-4">
-      <Link
-        preserve-scroll
-        :href="
-          isPostStarred
-            ? route('posts.unstar', post.id)
-            : route('posts.star', post.id)
-        "
-        :method="isPostStarred ? 'delete' : 'post'"
-        as="button"
-        class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
-      >
-        <StarIcon
-          class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
-          :class="
-            isPostStarred
-              ? 'text-yellow-300 fill-yellow-300'
-              : 'text-primary-100'
-          "
-        />
-        <span class="text-sm">
-          {{ post.total_stars }}
-        </span>
-      </Link>
-      <Link
-        preserve-scroll
-        :href="
-          isPostLiked
-            ? route('posts.unlike', post.id)
-            : route('posts.like', post.id)
-        "
-        :method="isPostLiked ? 'delete' : 'post'"
-        as="button"
-        class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-      >
-        <HeartIcon
-          class="w-6 h-6 group-hover:text-red-500 custom-transition"
-          :class="
-            isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
-          "
-        />
-        <span class="text-sm">
-          {{ post.total_likes }}
-        </span>
-      </Link>
-      <Link
-        :href="route('posts.show', post.id)"
-        class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-      >
-        <ChatBubbleBottomCenterIcon
-          class="w-6 h-6 group-hover:text-accent-100 custom-transition"
-          :class="
-            isPostCommented
-              ? 'text-accent-100 fill-accent-100'
-              : 'text-primary-100'
-          "
-        />
-        <span class="text-sm">
-          {{ post.total_comments }}
-        </span>
-      </Link>
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-primary-100">
+        {{ post.title }}
+      </h5>
+      <p class="mb-8 font-normal text-secondary-100 grow">
+        {{ post.description }}
+      </p>
+      <div class="self-end flex gap-4 flex-wrap">
+        <div
+          @click="like"
+          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+        >
+          <HeartIcon
+            class="w-6 h-6 group-hover:text-red-500 custom-transition"
+            :class="
+              isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
+            "
+          />
+          <span class="text-sm">
+            {{ post.total_likes }}
+          </span>
+        </div>
+        <div
+          @click="star"
+          class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
+        >
+          <StarIcon
+            class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
+            :class="
+              isPostStarred
+                ? 'text-yellow-300 fill-yellow-300'
+                : 'text-primary-100'
+            "
+          />
+          <span class="text-sm">
+            {{ post.total_stars }}
+          </span>
+        </div>
+        <Link
+          :href="route('posts.show', post.id)"
+          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+        >
+          <ChatBubbleBottomCenterIcon
+            class="w-6 h-6 group-hover:text-accent-100 custom-transition"
+            :class="
+              isPostCommented
+                ? 'text-accent-100 fill-accent-100'
+                : 'text-primary-100'
+            "
+          />
+          <span class="text-sm">
+            {{ post.total_comments }}
+          </span>
+        </Link>
+      </div>
     </div>
   </div>
 </template>
