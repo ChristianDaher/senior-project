@@ -87,21 +87,6 @@ const firstErrorMessage = computed(() => {
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-primary-100">
             <form @submit.prevent="submit" class="sm:w-3/4">
-              <div class="mb-4">
-                <p class="mb-2 text-primary-100 text-lg">
-                  Choose at least 1 tag
-                </p>
-                <div class="flex item-center flex-wrap gap-4">
-                  <Tag
-                    v-for="tag in tags"
-                    :tag="tag"
-                    :key="tag.id"
-                    class="cursor-pointer"
-                    :isChecked="form.tags.includes(tag.id)"
-                    @click="toggleTag(tag.id)"
-                  />
-                </div>
-              </div>
               <Input
                 v-model="form.title"
                 id="tilte"
@@ -158,6 +143,24 @@ const firstErrorMessage = computed(() => {
                   >
                     remove image
                   </p>
+                </div>
+              </div>
+              <div class="my-4">
+                <p class="mb-2 text-primary-100 text-lg">
+                  Tags
+                  <span class="text-sm text-secondary-100">
+                    (Choose at least 1)</span
+                  >
+                </p>
+                <div class="flex item-center flex-wrap gap-4">
+                  <Tag
+                    v-for="tag in tags"
+                    :tag="tag"
+                    :key="tag.id"
+                    class="cursor-pointer"
+                    :isChecked="form.tags.includes(tag.id)"
+                    @click="toggleTag(tag.id)"
+                  />
                 </div>
               </div>
               <div
