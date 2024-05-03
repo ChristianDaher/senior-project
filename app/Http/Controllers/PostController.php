@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostStoreRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -52,7 +53,9 @@ class PostController extends Controller
 
     public function show(string $id)
     {
-        $post = Post::with('comments')->findOrFail($id);
+        $post = Post::with(['comments' => function ($query) {
+            $query->orderBy('created_at', 'desc');
+        }, 'comments.user'])->findOrFail($id);
 
         return Inertia::render('Posts/Show', [
             'post' => $post,
@@ -124,7 +127,6 @@ class PostController extends Controller
             $post->increment('total_comments');
         } catch (\Exception $e) {
         }
-        return $post;
     }
 
     public function uncomment(string $id, string $commentId)
@@ -132,6 +134,5 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $success = $post->comments()->findOrFail($commentId)->delete();
         if ($success) $post->decrement('total_comments');
-        return $post;
     }
 }

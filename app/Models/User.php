@@ -77,13 +77,13 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->stars()->pluck('posts.id');
     }
 
-    public function comments(): BelongsToMany
+    public function comments(): HasMany
     {
-        return $this->belongsToMany(Post::class, 'comments')->withPivot('content')->as('comment')->withTimestamps();
+        return $this->HasMany(Comment::class);
     }
 
     public function commentedPostIds(): Collection
     {
-        return $this->comments()->pluck('posts.id');
+        return $this->comments()->pluck('post_id')->unique()->values();
     }
 }

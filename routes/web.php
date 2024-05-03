@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{post}/like', [PostController::class, 'unlike'])->name('unlike');
             Route::post('/{post}/star', [PostController::class, 'star'])->name('star');
             Route::delete('/{post}/star', [PostController::class, 'unstar'])->name('unstar');
-            Route::post('/{post}/comment', [PostController::class, 'comment'])->name('comment');
+            Route::post('/{post}/comment', [PostController::class, 'comment'])->name('comment')->middleware('throttle:10,1');
             Route::delete('/{post}/comment/{comment}', [PostController::class, 'uncomment'])->name('uncomment');
             Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
             Route::patch('/{post}', [PostController::class, 'update'])->name('update');

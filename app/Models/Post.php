@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
@@ -39,8 +40,8 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'stars')->withTimestamps();
     }
 
-    public function comments(): BelongsToMany
+    public function comments(): HasMany
     {
-        return $this->belongsToMany(User::class, 'comments')->withPivot('content')->as('comment')->withTimestamps();
+        return $this->hasMany(Comment::class);
     }
 }

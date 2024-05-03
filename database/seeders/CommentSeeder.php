@@ -19,7 +19,8 @@ class CommentSeeder extends Seeder
         $posts->each(function ($post) use ($users) {
             $commenting_users = $users->random(rand(5, 25));
             $commenting_users->each(function ($user) use ($post) {
-                $post->comments()->attach($user->id, [
+                $post->comments()->create([
+                    'user_id' => $user->id,
                     'content' => fake()->sentence,
                 ]);
                 $post->increment('total_comments');
