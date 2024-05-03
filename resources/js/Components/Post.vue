@@ -15,11 +15,11 @@ const props = defineProps({
   },
 });
 
-const user = usePage().props.auth.user;
+const auth = usePage().props.auth;
 
-const isPostLiked = ref(user.liked_post_ids.includes(props.post.id));
-const isPostStarred = ref(user.starred_post_ids.includes(props.post.id));
-const isPostCommented = ref(user.commented_post_ids.includes(props.post.id));
+const isPostLiked = ref(auth.likedPostIds.includes(props.post.id));
+const isPostStarred = ref(auth.starredPostIds.includes(props.post.id));
+const isPostCommented = ref(auth.commentedPostIds.includes(props.post.id));
 
 async function like() {
   if (isPostLiked.value) {
