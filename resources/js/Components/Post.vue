@@ -6,7 +6,10 @@ import {
   HeartIcon,
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/vue/24/outline";
+import { TrashIcon } from "@heroicons/vue/24/solid";
 import { ref } from "vue";
+
+const emit = defineEmits(["delete"]);
 
 const props = defineProps({
   post: {
@@ -75,53 +78,60 @@ async function star() {
       <p class="mb-8 font-normal text-secondary-100 grow">
         {{ post.description }}
       </p>
-      <div class="self-end flex gap-4 flex-wrap">
-        <div
-          @click="like"
-          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-        >
-          <HeartIcon
-            class="w-6 h-6 group-hover:text-red-500 custom-transition"
-            :class="
-              isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_likes }}
-          </span>
+      <div class="flex items-center justify-between">
+        <div class="flex gap-4 flex-wrap">
+          <div
+            @click="like"
+            class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+          >
+            <HeartIcon
+              class="w-6 h-6 group-hover:text-red-500 custom-transition"
+              :class="
+                isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_likes }}
+            </span>
+          </div>
+          <div
+            @click="star"
+            class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
+          >
+            <StarIcon
+              class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
+              :class="
+                isPostStarred
+                  ? 'text-yellow-300 fill-yellow-300'
+                  : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_stars }}
+            </span>
+          </div>
+          <Link
+            :href="route('posts.show', post.id)"
+            class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+          >
+            <ChatBubbleBottomCenterIcon
+              class="w-6 h-6 group-hover:text-accent-100 custom-transition"
+              :class="
+                isPostCommented
+                  ? 'text-accent-100 fill-accent-100'
+                  : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_comments }}
+            </span>
+          </Link>
         </div>
-        <div
-          @click="star"
-          class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
-        >
-          <StarIcon
-            class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
-            :class="
-              isPostStarred
-                ? 'text-yellow-300 fill-yellow-300'
-                : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_stars }}
-          </span>
-        </div>
-        <Link
-          :href="route('posts.show', post.id)"
-          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-        >
-          <ChatBubbleBottomCenterIcon
-            class="w-6 h-6 group-hover:text-accent-100 custom-transition"
-            :class="
-              isPostCommented
-                ? 'text-accent-100 fill-accent-100'
-                : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_comments }}
-          </span>
-        </Link>
+        <TrashIcon
+          v-if="auth.user.id === post.user_id || auth.user.is_admin"
+          class="w-6 h-6 text-error-100 cursor-pointer hover:text-error-200 custom-transition"
+          @click="$emit('delete', post)"
+        />
       </div>
     </div>
   </div>

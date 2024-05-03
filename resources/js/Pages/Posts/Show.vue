@@ -6,6 +6,7 @@ import {
   HeartIcon,
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/vue/24/outline";
+import { TrashIcon } from "@heroicons/vue/24/solid";
 import ButtonPrimary from "@/Components/Buttons/ButtonPrimary.vue";
 import Comment from "@/Components/Comment.vue";
 import { ref } from "vue";
@@ -66,11 +67,15 @@ async function star() {
     });
   }
 }
+
+function openDeleteModal() {}
 </script>
 
 <template>
   <Head :title="post.title" />
-  <div class="min-h-screen bg-disabled-100/50 py-4 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300">
+  <div
+    class="min-h-screen bg-disabled-100/50 py-4 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300"
+  >
     <div
       class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md mb-4 relative"
     >
@@ -95,53 +100,60 @@ async function star() {
           <p class="text-secondary-100">{{ post.description }}</p>
         </div>
       </div>
-      <div class="flex gap-4 mt-4">
-        <div
-          @click="like"
-          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-        >
-          <HeartIcon
-            class="w-6 h-6 group-hover:text-red-500 custom-transition"
-            :class="
-              isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_likes }}
-          </span>
+      <div class="flex items-center justify-between mt-4">
+        <div class="flex gap-4">
+          <div
+            @click="like"
+            class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+          >
+            <HeartIcon
+              class="w-6 h-6 group-hover:text-red-500 custom-transition"
+              :class="
+                isPostLiked ? 'text-red-500 fill-red-500' : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_likes }}
+            </span>
+          </div>
+          <div
+            @click="star"
+            class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
+          >
+            <StarIcon
+              class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
+              :class="
+                isPostStarred
+                  ? 'text-yellow-300 fill-yellow-300'
+                  : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_stars }}
+            </span>
+          </div>
+          <div
+            @click="() => commentInput.focus()"
+            class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
+          >
+            <ChatBubbleBottomCenterIcon
+              class="w-6 h-6 group-hover:text-accent-100 custom-transition"
+              :class="
+                isPostCommented
+                  ? 'text-accent-100 fill-accent-100'
+                  : 'text-primary-100'
+              "
+            />
+            <span class="text-sm">
+              {{ post.total_comments }}
+            </span>
+          </div>
         </div>
-        <div
-          @click="star"
-          class="flex gap-1 items-center cursor-pointer px-2 py-1 text-primary-100 group"
-        >
-          <StarIcon
-            class="w-6 h-6 group-hover:text-yellow-300 custom-transition"
-            :class="
-              isPostStarred
-                ? 'text-yellow-300 fill-yellow-300'
-                : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_stars }}
-          </span>
-        </div>
-        <div
-          @click="() => commentInput.focus()"
-          class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
-        >
-          <ChatBubbleBottomCenterIcon
-            class="w-6 h-6 group-hover:text-accent-100 custom-transition"
-            :class="
-              isPostCommented
-                ? 'text-accent-100 fill-accent-100'
-                : 'text-primary-100'
-            "
-          />
-          <span class="text-sm">
-            {{ post.total_comments }}
-          </span>
-        </div>
+        <TrashIcon
+          v-if="auth.user.id === post.user_id || auth.user.is_admin"
+          class="w-6 h-6 text-error-100 cursor-pointer hover:text-error-200 custom-transition"
+          @click="openDeleteModal"
+        />
       </div>
     </div>
     <div
@@ -152,7 +164,7 @@ async function star() {
           class="inline-block h-10 w-10 rounded-full"
           src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
           alt=""
-        /> -->
+          /> -->
         <UserCircleIcon class="h-10 w-10 text-secondary-100" />
         <div class="min-w-0 flex-1">
           <form @submit.prevent="submit">
@@ -187,7 +199,11 @@ async function star() {
         </div>
       </div>
       <div class="space-y-8">
-        <Comment v-for="comment in post.comments" :key="comment.id" :comment="comment" />
+        <Comment
+          v-for="comment in post.comments"
+          :key="comment.id"
+          :comment="comment"
+        />
       </div>
     </div>
   </div>

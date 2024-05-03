@@ -72,6 +72,8 @@ class PostController extends Controller
 
     public function destroy(string $id)
     {
+        $post = Post::findOrFail($id);
+        $post->delete();
     }
 
     public function adminUpdate(Request $request, string $id)

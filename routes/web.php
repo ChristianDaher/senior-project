@@ -20,6 +20,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/create', [PostController::class, 'create'])->name('create');
             Route::post('/', [PostController::class, 'store'])->name('store')->middleware('throttle:2,1');
             Route::get('/{post}', [PostController::class, 'show'])->name('show');
+            Route::patch('/{post}', [PostController::class, 'update'])->name('update');
+            Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
             Route::post('/{post}/like', [PostController::class, 'like'])->name('like');
             Route::delete('/{post}/like', [PostController::class, 'unlike'])->name('unlike');
             Route::post('/{post}/star', [PostController::class, 'star'])->name('star');
@@ -27,8 +29,6 @@ Route::middleware('auth')->group(function () {
             Route::post('/{post}/comment', [PostController::class, 'comment'])->name('comment')->middleware('throttle:10,1');
             Route::delete('/{post}/comment/{comment}', [PostController::class, 'uncomment'])->name('uncomment');
             Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
-            Route::patch('/{post}', [PostController::class, 'update'])->name('update');
-            Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
         });
     });
 

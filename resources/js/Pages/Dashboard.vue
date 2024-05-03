@@ -1,7 +1,11 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head, Link } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import Post from "@/Components/Post.vue";
+import Modal from "@/Components/Modal.vue";
+import ButtonSecondary from "@/Components/Buttons/ButtonSecondary.vue";
+import ButtonDanger from "@/Components/Buttons/ButtonDanger.vue";
+import { ref } from "vue";
 
 defineProps({
   posts: {
@@ -9,6 +13,30 @@ defineProps({
     default: () => [],
   },
 });
+
+const isModalOpen = ref(false);
+const postToDelete = ref(null);
+
+const form = useForm({});
+
+function openModal(post) {
+  postToDelete.value = post;
+  isModalOpen.value = true;
+}
+
+function closeModal() {
+  isModalOpen.value = false;
+  postToDelete.value = null;
+}
+
+function confirmDelete() {
+  form.delete(route("posts.destroy", postToDelete.value.id), {
+    preserveScroll: true,
+    onSuccess: () => {
+      closeModal();
+    },
+  });
+}
 
 //fix scroll when going back to post
 </script>
@@ -26,7 +54,12 @@ defineProps({
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-4 text-primary-100 space-y-4">
             <template v-if="posts.length">
-              <Post v-for="post in posts" :key="post.id" :post="post" />
+              <Post
+                v-for="post in posts"
+                :key="post.id"
+                :post="post"
+                @delete="openModal"
+              />
             </template>
             <template v-else>
               <span class="text-lg font-semibold text-primary-100"
@@ -43,5 +76,25 @@ defineProps({
         </div>
       </div>
     </div>
+    <Modal :show="isModalOpen" @close="closeModal">
+      <div class="p-6">
+        <h2 class="text-lg font-medium text-primary-100">
+          Are you sure you want to delete this post?
+        </h2>
+        <p class="mt-1 text-sm text-secondary-100 mb-4">
+          Once it is deleted, all of its comments, likes and stars will be
+          permanently deleted.
+        </p>
+        <form class="flex justify-end gap-4" @submit.prevent="confirmDelete">
+          <ButtonSecondary @click="closeModal"> Cancel </ButtonSecondary>
+          <ButtonDanger
+            :disabled="form.processing"
+            :class="{ 'bg-disabled-100': form.processing }"
+          >
+            Delete
+          </ButtonDanger>
+        </form>
+      </div>
+    </Modal>
   </AuthenticatedLayout>
 </template>
