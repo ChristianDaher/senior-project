@@ -19,9 +19,7 @@ class StarSeeder extends Seeder
         $posts->each(function ($post) use ($users) {
             $starring_users = $users->random(rand(1, $users->count() / 5));
             $starring_users->each(function ($user) use ($post) {
-                $post->stars()->create([
-                    'user_id' => $user->id,
-                ]);
+                $post->stars()->attach($user->id);
                 $post->increment('total_stars');
             });
         });

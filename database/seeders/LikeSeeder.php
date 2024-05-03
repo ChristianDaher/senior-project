@@ -19,9 +19,7 @@ class LikeSeeder extends Seeder
         $posts->each(function ($post) use ($users) {
             $liking_users = $users->random(rand(1, $users->count() / 2));
             $liking_users->each(function ($user) use ($post) {
-                $post->likes()->create([
-                    'user_id' => $user->id,
-                ]);
+                $post->likes()->attach($user->id);
                 $post->increment('total_likes');
             });
         });
