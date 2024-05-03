@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
     public function index()
     {
-        dd('View all users');
+        return Inertia::render('Admin/Users');
     }
 
     public function store(Request $request)

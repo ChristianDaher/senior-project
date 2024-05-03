@@ -5,6 +5,7 @@ import {
   CursorArrowRaysIcon,
   NewspaperIcon,
   UsersIcon,
+  TagIcon,
 } from "@heroicons/vue/24/outline";
 
 defineProps({
@@ -17,7 +18,7 @@ defineProps({
   },
 });
 
-const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon];
+const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon, TagIcon];
 </script>
 
 <template>
@@ -25,7 +26,7 @@ const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon];
     <h3 class="font-semibold leading-6 text-primary-100 mb-2 ml-1" v-if="when">
       {{ when }}
     </h3>
-    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-4">
+    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 mb-4">
       <div
         v-for="(value, key, index) in stats"
         :key="key"
@@ -48,6 +49,7 @@ const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon];
             {{ new Intl.NumberFormat().format(value.stat) }}
           </p>
           <p
+            v-if="value.change"
             class="ml-2 flex items-baseline text-sm font-semibold"
             :class="[value.change > 0 ? 'text-green-500' : 'text-error-100']"
           >
@@ -69,9 +71,9 @@ const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon];
             }}{{ new Intl.NumberFormat().format(value.change) }}
           </p>
           <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
-            <div class="text-sm">
+            <div class="text-sm" v-if="value.route">
               <Link
-                :href="route(`admin.${key}.index`)"
+                :href="route(value.route)"
                 class="font-medium text-accent-100 hover:text-accent-300 hover:underline custom-transition"
                 >View all<span class="sr-only">
                   {{ value.title }} stats</span

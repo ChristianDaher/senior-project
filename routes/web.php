@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, UserController, PostController, PromptController};
+use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, UserController, PostController, PromptController, TagController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('/posts')->name('posts.')->group(function () {
             Route::get('/create', [PostController::class, 'create'])->name('create');
-            Route::post('/', [PostController::class, 'store'])->name('store');
+            Route::post('/', [PostController::class, 'store'])->name('store')->middleware('throttle:2,1');
             Route::get('/{post}', [PostController::class, 'show'])->name('show');
             Route::post('/{post}/like', [PostController::class, 'like'])->name('like');
             Route::delete('/{post}/like', [PostController::class, 'unlike'])->name('unlike');
@@ -48,7 +48,16 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{post}', [PostController::class, 'adminDestroy'])->name('destroy');
         });
 
-        Route::resource('prompts', PromptController::class);
+        Route::prefix('/tags')->name('tags.')->group(function () {
+            Route::get('/', [TagController::class, 'index'])->name('index');
+            Route::post('/', [TagController::class, 'store'])->name('store');
+            Route::patch('/{post}', [TagController::class, 'update'])->name('update');
+            Route::delete('/{post}', [TagController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('/prompts')->name('prompts.')->group(function () {
+            Route::get('/', [PromptController::class, 'index'])->name('index');
+        });
     });
 });
 

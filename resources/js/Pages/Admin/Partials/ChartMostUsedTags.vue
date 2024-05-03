@@ -16,9 +16,9 @@ const props = defineProps({
   },
 });
 
-const seriesData = Object.entries(props.stats).map(([name, value]) => ({
-  value,
-  name,
+const seriesData = Object.entries(props.stats).map(([title, count]) => ({
+  value: count,
+  name: title,
 }));
 
 echarts.use([
@@ -36,11 +36,11 @@ onMounted(() => {
 
   usersChartInstance.setOption({
     title: {
-      text: "User Providers",
+      text: "Most Used Tags",
     },
     tooltip: {
       trigger: "item",
-      formatter: "{a} from {b} <br/> {c} ({d}%)",
+      formatter: "{b} posts <br/> {c} ({d}%)",
     },
     legend: {
       orient: "vertical",
@@ -49,7 +49,7 @@ onMounted(() => {
     },
     series: [
       {
-        name: "Users",
+        name: "Tags",
         type: "pie",
         radius: "65%",
         data: seriesData,

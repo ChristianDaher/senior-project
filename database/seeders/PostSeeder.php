@@ -54,8 +54,9 @@ class PostSeeder extends Seeder
 
         $now = now();
         foreach ($posts as &$post) {
-            $post['created_at'] = $now;
-            $post['updated_at'] = $now;
+            $randomDays = rand(0, 7);
+            $post['created_at'] = $now->copy()->subDays($randomDays);
+            $post['updated_at'] = $now->copy()->subDays($randomDays);
         }
 
         Post::insert($posts);

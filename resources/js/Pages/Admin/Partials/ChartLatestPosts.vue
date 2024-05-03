@@ -8,6 +8,7 @@ import {
   TooltipComponent,
 } from "echarts/components";
 import { CanvasRenderer } from "echarts/renderers";
+import { format } from "date-fns";
 
 const props = defineProps({
   stats: {
@@ -15,6 +16,9 @@ const props = defineProps({
     default: () => {},
   },
 });
+
+const days = props.stats?.map((item) => format(new Date(item.date), "eeee").slice(0, 3).toUpperCase());
+const counts = props.stats?.map((item) => item.count);
 
 echarts.use([
   BarChart,
@@ -35,14 +39,14 @@ onMounted(() => {
     },
     tooltip: {},
     xAxis: {
-      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+      data: days,
     },
     yAxis: {},
     series: [
       {
         name: "Posts",
         type: "bar",
-        data: [5, 20, 36, 10, 10, 20, 15],
+        data: counts,
       },
     ],
   });
