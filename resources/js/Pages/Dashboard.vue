@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import { Head } from "@inertiajs/vue3";
+import { Head, Link } from "@inertiajs/vue3";
 import Post from "@/Components/Post.vue";
 
 defineProps({
@@ -25,7 +25,20 @@ defineProps({
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-4 text-primary-100 space-y-4">
-            <Post v-for="post in posts" :key="post.id" :post="post" />
+            <template v-if="posts.length">
+              <Post v-for="post in posts" :key="post.id" :post="post" />
+            </template>
+            <template v-else>
+              <span class="text-lg font-semibold text-primary-100"
+                >No posts found.{{ " " }}</span
+              >
+              <Link
+                class="text-accent-100 hover:underline custom-transition hover:text-accent-200"
+                :href="route('posts.create')"
+              >
+                Create a new post
+              </Link>
+            </template>
           </div>
         </div>
       </div>

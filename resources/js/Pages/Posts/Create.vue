@@ -86,7 +86,7 @@ const firstErrorMessage = computed(() => {
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-base-100 overflow-hidden shadow-sm sm:rounded-lg">
           <div class="p-6 text-primary-100">
-            <form @submit.prevent="submit" class="sm:w-3/4">
+            <form @submit.prevent="submit" class="sm:w-3/4" v-if="tags.length">
               <Input
                 v-model="form.title"
                 id="tilte"
@@ -178,6 +178,10 @@ const firstErrorMessage = computed(() => {
                 </ButtonPrimary>
               </div>
             </form>
+            <span v-else class="text-primary-100 text-lg font-semibold"
+              >No tags found, an admin will fix it shortly. Please come back
+              later.</span
+            >
           </div>
         </div>
       </div>
