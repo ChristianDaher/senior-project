@@ -70,9 +70,9 @@ async function star() {
 
 <template>
   <Head :title="post.title" />
-  <div class="min-h-screen bg-disabled-100/50 py-4">
+  <div class="min-h-screen bg-disabled-100/50 py-4 before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 before:w-full before:h-1/2 before:bg-gradient-to-t from-accent-200 to-accent-300">
     <div
-      class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md mb-4"
+      class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md mb-4 relative"
     >
       <Link
         :href="route('dashboard')"
@@ -145,7 +145,7 @@ async function star() {
       </div>
     </div>
     <div
-      class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md"
+      class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md relative"
     >
       <div class="flex items-start space-x-4 my-4">
         <!-- <img
