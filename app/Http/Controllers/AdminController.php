@@ -30,7 +30,7 @@ class AdminController extends Controller
         $newlyDeletedPostsCount = Post::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
         $newPostsCount = $newlyCreatedPostsCount - $newlyDeletedPostsCount;
         $postsPerDay = Post::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->where('created_at', '>=', now()->subDays(7))
+            ->where('created_at', '>=', now()->subDays(6))
             ->groupBy('date')
             ->orderBy('date', 'DESC')
             ->get()
