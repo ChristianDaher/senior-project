@@ -39,6 +39,12 @@ const showingNavigationDropdown = ref(false);
                 Create Post
               </NavLink>
               <NavLink
+                :href="route('prompts.index')"
+                :active="route().current('prompts.index')"
+              >
+                Prompt
+              </NavLink>
+              <NavLink
                 v-if="$page.props.auth.user.is_admin"
                 :href="route('admin.dashboard')"
                 :active="route().current('admin.dashboard')"
@@ -106,6 +112,12 @@ const showingNavigationDropdown = ref(false);
             :active="route().current('posts.create')"
           >
             Create Post
+          </ResponsiveNavLink>
+          <ResponsiveNavLink
+            :href="route('prompts.index')"
+            :active="route().current('prompts.index')"
+          >
+            Prompt
           </ResponsiveNavLink>
           <ResponsiveNavLink
             v-if="$page.props.auth.user.is_admin"

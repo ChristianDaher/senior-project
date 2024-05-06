@@ -14,7 +14,7 @@ const props = defineProps({
   },
   label: {
     type: String,
-    required: true,
+    required: false,
   },
   position: {
     type: String,
@@ -27,6 +27,10 @@ const props = defineProps({
   refObject: {
     type: Object,
     default: null,
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -59,6 +63,7 @@ const positionClasses = computed(() => {
       required
       :autocomplete="autocomplete"
       @input="$emit('input')"
+      :readonly="readonly"
     />
     <input
       v-else
@@ -72,8 +77,10 @@ const positionClasses = computed(() => {
       required
       :autocomplete="autocomplete"
       @input="$emit('input')"
+      :readonly="readonly"
     />
     <label
+      v-if="label"
       :for="id"
       class="cursor-text text-disabled-100 absolute z-20 top-3 left-4 text-lg peer-focus:top-0 peer-focus:text-sm custom-transition"
       :class="{ '!top-0 text-sm': model }"

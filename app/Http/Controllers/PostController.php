@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PostStoreRequest;
-use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
@@ -15,7 +15,9 @@ class PostController extends Controller
 {
     public function adminIndex()
     {
-        dd('View all posts');
+        return Inertia::render('Admin/Posts', [
+            'posts' => Post::all(),
+        ]);
     }
 
     public function create()
@@ -68,20 +70,19 @@ class PostController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $post = Post::findOrFail($id);
+        if (!Gate::allows('update-post', $post)) {
+            abort(403);
+        }
     }
 
     public function destroy(string $id)
     {
         $post = Post::findOrFail($id);
+        if (!Gate::allows('delete-post', $post)) {
+            abort(403);
+        }
         $post->delete();
-    }
-
-    public function adminUpdate(Request $request, string $id)
-    {
-    }
-
-    public function adminDestroy(string $id)
-    {
     }
 
     public function like(string $id)

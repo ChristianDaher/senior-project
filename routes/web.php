@@ -30,6 +30,12 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{post}/comment/{comment}', [PostController::class, 'uncomment'])->name('uncomment');
             Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
         });
+
+        Route::prefix('/prompts')->name('prompts.')->group(function () {
+            Route::get('/', [PromptController::class, 'index'])->name('index');
+            Route::post('/free', [PromptController::class, 'storeFree'])->name('store.free');
+            Route::post('/paid', [PromptController::class, 'storePaid'])->name('store.paid');
+        });
     });
 
     Route::middleware('can:admin')->prefix('/admin')->name('admin.')->group(function () {
@@ -44,8 +50,6 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('/posts')->name('posts.')->group(function () {
             Route::get('/', [PostController::class, 'adminIndex'])->name('index');
-            Route::patch('/{post}', [PostController::class, 'adminUpdate'])->name('update');
-            Route::delete('/{post}', [PostController::class, 'adminDestroy'])->name('destroy');
         });
 
         Route::prefix('/tags')->name('tags.')->group(function () {
@@ -56,7 +60,7 @@ Route::middleware('auth')->group(function () {
         });
 
         Route::prefix('/prompts')->name('prompts.')->group(function () {
-            Route::get('/', [PromptController::class, 'index'])->name('index');
+            Route::get('/', [PromptController::class, 'adminIndex'])->name('index');
         });
     });
 });

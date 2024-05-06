@@ -86,4 +86,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->comments()->pluck('post_id')->unique()->values();
     }
+
+    public function prompts(): HasMany
+    {
+        return $this->hasMany(Prompt::class);
+    }
 }
