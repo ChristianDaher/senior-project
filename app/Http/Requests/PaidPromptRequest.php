@@ -11,7 +11,7 @@ class PaidPromptRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class PaidPromptRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'n' => ['required', 'numeric'],
+            'p' => ['required', 'numeric'],
+            'k' => ['required', 'numeric'],
+            'temp' => ['required', 'numeric'],
+            'h' => ['required', 'numeric'],
+            'ph' => ['required', 'numeric'],
+            'rain' => ['required', 'numeric'],
         ];
     }
 }

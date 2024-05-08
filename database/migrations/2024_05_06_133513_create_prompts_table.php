@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->json('prompt');
             $table->string('type');
-            $table->text('response')->nullable();
+            $table->json('response')->nullable();
             $table->timestamps();
         });
     }

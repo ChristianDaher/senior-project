@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\FreePromptRequest;
+use App\Http\Requests\PaidPromptRequest;
 use App\Models\Prompt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class PromptController extends Controller
@@ -43,12 +43,29 @@ class PromptController extends Controller
                 ],
             ]);
 
-            Log::info($response->json()['candidates'][0]['content']['parts'][0]['text']);
+            $prompt->update([
+                'response' => $response->json()['candidates'][0]['content']['parts'][0],
+            ]);
+        } catch (\Error $e) {
+        }
+
+        return response()->json($prompt);
+    }
+
+    public function storePaid(PaidPromptRequest $request)
+    {
+        $prompt = auth()->user()->prompts()->create([
+            'prompt' => json_encode($request->all()),
+            'type' => 'paid',
+        ]);
+
+        try {
+            $response = Http::withHeaders(['Authorization' => 'Bearer ' . config("app.api_secret_key")])
+                ->post(config("app.api_url") . '/prediction', json_decode($prompt->prompt, true));
 
             $prompt->update([
-                'response' => $response->json()['candidates'][0]['content']['parts'][0]['text'],
+                'response' => $response->json(),
             ]);
-
         } catch (\Error $e) {
         }
 

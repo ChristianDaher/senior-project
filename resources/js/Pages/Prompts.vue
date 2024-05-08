@@ -2,7 +2,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head } from "@inertiajs/vue3";
 import Input from "@/Components/Input.vue";
-import { ref, computed } from "vue";
+import { ref, computed, reactive } from "vue";
 import ButtonPrimary from "@/Components/Buttons/ButtonPrimary.vue";
 import Spinner from "@/Components/Spinner.vue";
 import MarkdownRenderer from "vue-markdown-render";
@@ -21,13 +21,54 @@ function submitFree() {
   axios
     .post(route("prompts.store.free"), { prompt: freePrompt.value })
     .then((response) => {
-      freeResponse.value = response.data.response;
+      freeResponse.value = response.data.response.text;
     })
     .catch((error) => {
       freeErrorMessage.value = error.response.data.message;
     })
     .finally(() => {
       isFreeLoading.value = false;
+    });
+}
+
+const paidPrompt = reactive({
+  n: 0,
+  p: 0,
+  k: 0,
+  h: 0,
+  temp: 20,
+  ph: 7,
+  rain: 20,
+});
+const paidResponse = ref("");
+const paidErrorMessage = ref("");
+const isPaidLoading = ref(false);
+
+const isSubmitPaidDisabled = computed(() => {
+  return (
+    (!paidPrompt.n && paidPrompt.n !== 0) ||
+    (!paidPrompt.p && paidPrompt.p !== 0) ||
+    (!paidPrompt.k && paidPrompt.k !== 0) ||
+    (!paidPrompt.h && paidPrompt.h !== 0) ||
+    (!paidPrompt.temp && paidPrompt.temp !== 0) ||
+    (!paidPrompt.ph && paidPrompt.ph !== 0) ||
+    (!paidPrompt.rain && paidPrompt.rain !== 0) ||
+    isPaidLoading.value
+  );
+});
+
+function submitPaid() {
+  isPaidLoading.value = true;
+  axios
+    .post(route("prompts.store.paid"), paidPrompt)
+    .then((response) => {
+      paidResponse.value = response.data.response;
+    })
+    .catch((error) => {
+      paidErrorMessage.value = error.response.data.message;
+    })
+    .finally(() => {
+      isPaidLoading.value = false;
     });
 }
 </script>
@@ -80,6 +121,112 @@ function submitFree() {
               v-show="freeResponse"
               class="sm:w-3/4 my-4"
             />
+            <form @submit.prevent="submitPaid" class="sm:w-3/4">
+              <h1 class="mb-1 pl-1">
+                Use this <span class="text-accent-100">paid</span> version for
+                more accurate results.
+              </h1>
+              <Input
+                v-model="paidPrompt.n"
+                id="paidPromptN"
+                type="number"
+                label="Nitrogen"
+                position="first"
+                :min="0"
+                :step="0.01"
+              />
+              <Input
+                v-model="paidPrompt.p"
+                id="paidPromptP"
+                type="number"
+                label="Phosphorus"
+                position="middle"
+                :min="0"
+                :step="0.01"
+              />
+              <Input
+                v-model="paidPrompt.k"
+                id="paidPromptK"
+                type="number"
+                label="Potassium"
+                position="middle"
+                :min="0"
+                :step="0.01"
+              />
+              <Input
+                v-model="paidPrompt.h"
+                id="paidPromptH"
+                type="number"
+                label="Hydrogen"
+                position="middle"
+                :min="0"
+                :step="0.01"
+              />
+              <Input
+                v-model="paidPrompt.temp"
+                id="paidPromptTemp"
+                type="number"
+                label="Temperature"
+                position="middle"
+                :step="0.1"
+              />
+              <Input
+                v-model="paidPrompt.ph"
+                id="paidPromptPh"
+                type="number"
+                label="Acidity"
+                position="middle"
+                :min="0"
+                :max="14"
+                :step="0.01"
+              />
+              <Input
+                v-model="paidPrompt.rain"
+                id="paidPromptRain"
+                type="number"
+                label="Rainfall"
+                position="last"
+                :min="0"
+                :step="0.01"
+              />
+              <div
+                class="flex items-center mt-4"
+                :class="[paidErrorMessage ? 'justify-between' : 'justify-end']"
+              >
+                <p class="text-sm text-error-100">{{ paidErrorMessage }}</p>
+                <div class="flex items-center gap-4">
+                  <Spinner v-if="isPaidLoading" />
+                  <ButtonPrimary
+                    :class="{
+                      'bg-disabled-100': isSubmitPaidDisabled,
+                    }"
+                    :disabled="isSubmitPaidDisabled"
+                  >
+                    Submit
+                  </ButtonPrimary>
+                </div>
+              </div>
+            </form>
+            <div v-if="paidResponse">
+              <p>Predicted Crop: {{ paidResponse.predicted_crop }}</p>
+              <ul>
+                <li>
+                  Best Season for Plating:
+                  {{ paidResponse.suggestions.best_season_for_planting }}
+                </li>
+                <li>Description: {{ paidResponse.suggestions.description }}</li>
+                <li>
+                  Ideal Weather: {{ paidResponse.suggestions.ideal_weather }}
+                </li>
+                <li><img :src="paidResponse.suggestions.img_link" /></li>
+                <li>
+                  More Reference:
+                  <a :href="paidResponse.suggestions.link" target="_blank">{{
+                    paidResponse.suggestions.link
+                  }}</a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -88,17 +235,17 @@ function submitFree() {
 </template>
 
 <style>
-#markdown strong{
+#markdown strong {
   @apply text-accent-100 mb-2;
 }
 
-#markdown ul{
+#markdown ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
 }
 
-#markdown ol{
+#markdown ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin-bottom: 1rem;
