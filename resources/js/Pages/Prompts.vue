@@ -78,7 +78,7 @@ function submitFree() {
               id="markdown"
               :source="freeResponse"
               v-show="freeResponse"
-              class="sm:w-3/4 my-4 space-y-2"
+              class="sm:w-3/4 my-4"
             />
           </div>
         </div>
@@ -87,8 +87,20 @@ function submitFree() {
   </AuthenticatedLayout>
 </template>
 
-<style scoped>
-#markdown p{
-  color: #00854a !important;
+<style>
+#markdown strong{
+  @apply text-accent-100 mb-2;
+}
+
+#markdown ul{
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+#markdown ol{
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
 }
 </style>
