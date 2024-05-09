@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Prompt;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -45,10 +46,21 @@ class AdminController extends Controller
         }
         $postsPerDay = $postsPerDay->sortBy('date')->values();
 
-        // $totalPromptsCount = Prompt::count();
-        // $newlyCreatedPromptsCount = Prompt::whereBetween('created_at', [now()->subWeek(), now()])->count();
-        // $newlyDeletedPromptsCount = Prompt::onlyTrashed()->whereBetween('deleted_at', [now()->subWeek(), now()])->count();
-        // $newPromptsCount = $newlyCreatedPromptsCount - $newlyDeletedPromptsCount;
+        $totalPromptsCount = Prompt::count();
+        $newPromptsCount = Prompt::whereBetween('created_at', [now()->subWeek(), now()])->count();
+        $mostPredictedCrops = Prompt::select(DB::raw("response->'$.predicted_crop' as predicted_crop"), DB::raw('count(*) as count'))
+            ->where('type', 'paid')
+            ->groupBy('predicted_crop')
+            ->orderBy('count', 'desc')
+            ->limit(5)
+            ->get()
+            ->pluck('count', 'predicted_crop');
+
+        foreach ($mostPredictedCrops as $key => $value) {
+            $newKey = trim($key, '"');
+            $mostPredictedCrops[$newKey] = $value;
+            unset($mostPredictedCrops[$key]);
+        }
 
         $totalTagsCount = Tag::count();
         $newTagsCount = Tag::whereBetween('created_at', [now()->subWeek(), now()])->count();
@@ -58,8 +70,6 @@ class AdminController extends Controller
             ->get()
             ->pluck('posts_count', 'title');
 
-        $totalPromptsCount = $totalUsersCount * 2;
-        $newPromptsCount = $newUsersCount;
 
         return Inertia::render('Admin/Index', [
             'when' => 'Last 7 Days',
@@ -82,6 +92,7 @@ class AdminController extends Controller
                     'title' => 'Total Prompts',
                     'stat' => $totalPromptsCount,
                     'change' => $newPromptsCount,
+                    'mostPredictedCrops' => $mostPredictedCrops,
                     'route' => 'admin.prompts.index',
                 ],
                 'tags' => [

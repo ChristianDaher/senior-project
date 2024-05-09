@@ -32,10 +32,10 @@ function submitFree() {
 }
 
 const paidPrompt = reactive({
-  n: 0,
-  p: 0,
-  k: 0,
-  h: 0,
+  n: 1000,
+  p: 500,
+  k: 1000,
+  h: 30,
   temp: 20,
   ph: 7,
   rain: 20,
@@ -130,7 +130,7 @@ function submitPaid() {
                 v-model="paidPrompt.n"
                 id="paidPromptN"
                 type="number"
-                label="Nitrogen"
+                label="Nitrogen (mg/kg)"
                 position="first"
                 :min="0"
                 :step="0.01"
@@ -139,7 +139,7 @@ function submitPaid() {
                 v-model="paidPrompt.p"
                 id="paidPromptP"
                 type="number"
-                label="Phosphorus"
+                label="Phosphorus (mg/kg)"
                 position="middle"
                 :min="0"
                 :step="0.01"
@@ -148,7 +148,7 @@ function submitPaid() {
                 v-model="paidPrompt.k"
                 id="paidPromptK"
                 type="number"
-                label="Potassium"
+                label="Potassium (mg/kg)"
                 position="middle"
                 :min="0"
                 :step="0.01"
@@ -157,16 +157,17 @@ function submitPaid() {
                 v-model="paidPrompt.h"
                 id="paidPromptH"
                 type="number"
-                label="Hydrogen"
+                label="Humidity (%)"
                 position="middle"
                 :min="0"
-                :step="0.01"
+                :max="100"
+                :step="0.1"
               />
               <Input
                 v-model="paidPrompt.temp"
                 id="paidPromptTemp"
                 type="number"
-                label="Temperature"
+                label="Temperature (°C)"
                 position="middle"
                 :step="0.1"
               />
@@ -174,7 +175,7 @@ function submitPaid() {
                 v-model="paidPrompt.ph"
                 id="paidPromptPh"
                 type="number"
-                label="Acidity"
+                label="Acidity of the soil (pH)"
                 position="middle"
                 :min="0"
                 :max="14"
@@ -184,7 +185,7 @@ function submitPaid() {
                 v-model="paidPrompt.rain"
                 id="paidPromptRain"
                 type="number"
-                label="Rainfall"
+                label="Rainfall (mm)"
                 position="last"
                 :min="0"
                 :step="0.01"
