@@ -60,13 +60,32 @@ You should now be able to access the application at [localhost:8000](http://loca
 
 ## 📝 Todo List
 
-- [x] Login page
-- [x] Register page
-- [x] Forgot password page
-- [x] Reset password page
-- [ ] Fix the email templates more (low)
-- [x] Verify email page
-- [ ] Welcome page
-- [ ] Dashboard page
-- [x] Settings / Profile page
-- [ ] Admin dashboard page
+### Completed Tasks
+- [x] All login flow done
+- [x] Edit/Delete your profile
+- [x] Render posts in dashboard
+- [x] Basic welcome page
+- [x] Way to create a post
+- [x] Way to delete your post
+- [x] ADMIN - Delete any post they want
+- [x] Integrate with Google gemini (free API)
+- [x] Integrate with terra ai flask API (paid API)
+- [x] Make basic admin page with different statistics
+- [x] FAQ page
+- [x] Way to check all your starred posts
+
+### Pending Tasks
+- [ ] ADMIN - Create/Update/Delete Users 
+- [ ] ADMIN - View all Prompts grouped by user 
+- [ ] ADMIN - Create/Update/Delete Tags 
+- [ ] ADMIN - Create/Update/Delete FAQs
+- [ ] Fix Prompt page design 
+- [ ] Paginate posts in dashboard and starred
+- [ ] Add Search by tag in dashboard
+- [ ] Add who and when a user published a post
+- [ ] Lazy load comments in a post
+- [ ] Design welcome page
+
+### Low Priority Tasks
+- [ ] ADMIN - Edit Posts and show that it was edited
+- [ ] Fix email template designs
