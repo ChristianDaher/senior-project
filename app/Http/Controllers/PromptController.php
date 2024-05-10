@@ -30,13 +30,15 @@ class PromptController extends Controller
             'type' => 'free',
         ]);
 
+        $promptFilter = "Only provide answers to agriculture and farming related topics. Anything outside of this constraint please tell me that this is not within your range of topics. Apply the rules i gave you on any prompt after the coming semicolon: ";
+        
         try {
             $response = Http::post("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" . config("app.google_api_key"), [
                 "contents" => [
                     [
                         "parts" => [
                             [
-                                "text" => json_decode($prompt->prompt, true)['message'],
+                                "text" => $promptFilter . json_decode($prompt->prompt, true)['message'],
                             ]
                         ]
                     ]
