@@ -61,6 +61,7 @@ class PostController extends Controller
 
         return Inertia::render('Posts/Show', [
             'post' => $post,
+            'backRoute' => request()->input('backRoute'),
         ]);
     }
 
@@ -137,5 +138,14 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
         $success = $post->comments()->findOrFail($commentId)->delete();
         if ($success) $post->decrement('total_comments');
+    }
+
+    public function starredPosts()
+    {
+        $posts = auth()->user()->stars;
+
+        return Inertia::render('Posts/Starred', [
+            'posts' => $posts,
+        ]);
     }
 }

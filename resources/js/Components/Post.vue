@@ -16,6 +16,10 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  backRoute: {
+    type: String,
+    default: () => route("dashboard"),
+  },
 });
 
 const auth = usePage().props.auth;
@@ -111,7 +115,7 @@ async function star() {
             </span>
           </div>
           <Link
-            :href="route('posts.show', post.id)"
+            :href="route('posts.show', { post: post.id, backRoute })"
             class="flex gap-1 items-center cursor-pointer group px-2 py-1 text-primary-100 group"
           >
             <ChatBubbleBottomCenterIcon

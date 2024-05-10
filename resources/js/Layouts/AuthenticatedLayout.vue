@@ -68,8 +68,23 @@ const showingNavigationDropdown = ref(false);
                   </span>
                 </template>
                 <template #content>
-                  <DropdownLink :href="route('profile.edit')">
+                  <DropdownLink
+                    :href="route('faq')"
+                    :active="route().current('faq')"
+                  >
+                    FAQ
+                  </DropdownLink>
+                  <DropdownLink
+                    :href="route('profile.edit')"
+                    :active="route().current('profile.edit')"
+                  >
                     Profile
+                  </DropdownLink>
+                  <DropdownLink
+                    :href="route('posts.starred')"
+                    :active="route().current('posts.starred')"
+                  >
+                    Starred
                   </DropdownLink>
                   <DropdownLink
                     :href="route('logout')"
@@ -138,10 +153,22 @@ const showingNavigationDropdown = ref(false);
           </div>
           <div class="mt-3 space-y-1">
             <ResponsiveNavLink
+              :href="route('faq')"
+              :active="route().current('faq')"
+            >
+              FAQ
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
               :href="route('profile.edit')"
               :active="route().current('profile.edit')"
             >
               Profile
+            </ResponsiveNavLink>
+            <ResponsiveNavLink
+              :href="route('posts.starred')"
+              :active="route().current('posts.starred')"
+            >
+              Starred
             </ResponsiveNavLink>
             <ResponsiveNavLink
               :href="route('logout')"

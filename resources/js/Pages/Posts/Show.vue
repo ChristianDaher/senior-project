@@ -16,6 +16,10 @@ const props = defineProps({
     type: Object,
     default: () => {},
   },
+  backRoute: {
+    type: String,
+    default: () => route("dashboard"),
+  },
 });
 
 const form = useForm({
@@ -80,7 +84,7 @@ function openDeleteModal() {}
       class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 bg-base-100 shadow rounded-md mb-4 relative"
     >
       <Link
-        :href="route('dashboard')"
+        :href="backRoute"
         class="inline-block mb-4 p-1 rounded-full hover:bg-disabled-100 outline-none focus:bg-disabled-100 custom-transition"
       >
         <ArrowLeftIcon class="h-6 w-6 text-accent-200" />

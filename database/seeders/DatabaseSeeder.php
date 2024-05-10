@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             LikeSeeder::class,
             StarSeeder::class,
             CommentSeeder::class,
+            FaqSeeder::class,
         ]);
     }
 }

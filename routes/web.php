@@ -4,6 +4,7 @@ use App\Http\Controllers\{DashboardController, WelcomeController, ProfileControl
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/faq', [WelcomeController::class, 'faq'])->name('faq');
 
 Route::middleware('auth')->group(function () {
 
@@ -16,19 +17,21 @@ Route::middleware('auth')->group(function () {
     Route::middleware('verified')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+
         Route::prefix('/posts')->name('posts.')->group(function () {
-            Route::get('/create', [PostController::class, 'create'])->name('create');
             Route::post('/', [PostController::class, 'store'])->name('store')->middleware('throttle:2,1');
+            Route::get('/create', [PostController::class, 'create'])->name('create');
+            Route::get('/starred', [PostController::class, 'starredPosts'])->name('starred');
             Route::get('/{post}', [PostController::class, 'show'])->name('show');
             Route::patch('/{post}', [PostController::class, 'update'])->name('update');
             Route::delete('/{post}', [PostController::class, 'destroy'])->name('destroy');
+            Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
             Route::post('/{post}/like', [PostController::class, 'like'])->name('like');
             Route::delete('/{post}/like', [PostController::class, 'unlike'])->name('unlike');
             Route::post('/{post}/star', [PostController::class, 'star'])->name('star');
             Route::delete('/{post}/star', [PostController::class, 'unstar'])->name('unstar');
             Route::post('/{post}/comment', [PostController::class, 'comment'])->name('comment')->middleware('throttle:10,1');
             Route::delete('/{post}/comment/{comment}', [PostController::class, 'uncomment'])->name('uncomment');
-            Route::get('/{post}/edit', [PostController::class, 'edit'])->name('edit');
         });
 
         Route::prefix('/prompts')->name('prompts.')->group(function () {
