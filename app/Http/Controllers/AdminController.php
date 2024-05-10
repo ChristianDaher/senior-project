@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faq;
 use App\Models\Post;
 use App\Models\Prompt;
 use App\Models\Tag;
@@ -70,6 +71,8 @@ class AdminController extends Controller
             ->get()
             ->pluck('posts_count', 'title');
 
+        $totalFaqsCount = Faq::count();
+        $newFaqsCount = Faq::whereBetween('created_at', [now()->subWeek(), now()])->count();
 
         return Inertia::render('Admin/Index', [
             'when' => 'Last 7 Days',
@@ -101,6 +104,12 @@ class AdminController extends Controller
                     'change' => $newTagsCount,
                     'mostUsed' => $mostUsedTags,
                     'route' => 'admin.tags.index',
+                ],
+                'faqs' => [
+                    'title' => 'All FAQs',
+                    'stat' => $totalFaqsCount,
+                    'change' => $newFaqsCount,
+                    'route' => 'admin.faqs.index',
                 ],
             ]
         ]);

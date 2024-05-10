@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, UserController, PostController, PromptController, TagController};
+use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, FaqController, UserController, PostController, PromptController, TagController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -64,6 +64,13 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('/prompts')->name('prompts.')->group(function () {
             Route::get('/', [PromptController::class, 'adminIndex'])->name('index');
+        });
+
+        Route::prefix('/faqs')->name('faqs.')->group(function () {
+            Route::get('/', [FaqController::class, 'index'])->name('index');
+            Route::post('/', [FaqController::class, 'store'])->name('store');
+            Route::patch('/{faq}', [FaqController::class, 'update'])->name('update');
+            Route::delete('/{faq}', [FaqController::class, 'destroy'])->name('destroy');
         });
     });
 });

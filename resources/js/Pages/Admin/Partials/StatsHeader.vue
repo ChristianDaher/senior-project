@@ -6,6 +6,7 @@ import {
   NewspaperIcon,
   UsersIcon,
   TagIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/vue/24/outline";
 
 defineProps({
@@ -18,7 +19,13 @@ defineProps({
   },
 });
 
-const icons = [UsersIcon, NewspaperIcon, CursorArrowRaysIcon, TagIcon];
+const icons = [
+  UsersIcon,
+  NewspaperIcon,
+  CursorArrowRaysIcon,
+  TagIcon,
+  QuestionMarkCircleIcon,
+];
 </script>
 
 <template>
