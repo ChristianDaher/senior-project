@@ -33,8 +33,8 @@ Route::middleware('auth')->group(function () {
 
         Route::prefix('/prompts')->name('prompts.')->group(function () {
             Route::get('/', [PromptController::class, 'index'])->name('index');
-            Route::post('/free', [PromptController::class, 'storeFree'])->name('store.free');
-            Route::post('/paid', [PromptController::class, 'storePaid'])->name('store.paid');
+            Route::post('/free', [PromptController::class, 'storeFree'])->name('store.free')->middleware('throttle:2,1');
+            Route::post('/paid', [PromptController::class, 'storePaid'])->name('store.paid')->middleware('throttle:5,1');
         });
     });
 
