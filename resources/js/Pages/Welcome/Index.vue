@@ -30,6 +30,6 @@ import Landing from "@/Pages/Welcome/Partials/Landing.vue";
     </div>
   </nav>
   <main>
-    <Landing />
+    <Landing @focusOnInput="" />
   </main>
 </template>

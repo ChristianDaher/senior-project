@@ -85,6 +85,8 @@ You should now be able to access the application at [localhost:8000](http://loca
 - [ ] Add who and when a user published a post
 - [ ] Lazy load comments in a post
 - [ ] Design welcome page
+- [ ] Rename Dashboard to Forum
+- [ ] Add animations to the welcome page
 
 ### Low Priority Tasks
 - [ ] ADMIN - Edit Posts and show that it was edited
