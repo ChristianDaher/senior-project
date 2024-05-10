@@ -50,7 +50,7 @@ class PostController extends Controller
 
         $post->tags()->attach($request->input('tags'));
 
-        return redirect()->route('dashboard');
+        return redirect()->route('forum');
     }
 
     public function show(string $id)

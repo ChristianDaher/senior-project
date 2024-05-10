@@ -16,13 +16,13 @@ class FaqSeeder extends Seeder
         Faq::create([
             'order' => 1,
             'question' => 'How can I use the Crop Prediction Feature?',
-            'answer' => 'To use the Crop Prediction Feature, you need to sign up and log in. After that, you can access the Crop Prediction Feature from the dashboard in the "Prompt section".',
+            'answer' => 'To use the Crop Prediction Feature, you need to sign up and log in. After that, you can access the Crop Prediction Feature from the forum in the "Prompt section".',
         ]);
 
         Faq::create([
             'order' => 2,
             'question' => 'How can I share an interesting topic?',
-            'answer' => 'To share a topic publicly, you will need to post it using the "Post" feature. You can access the "Post" feature from the dashboard.',
+            'answer' => 'To share a topic publicly, you will need to post it using the "Post" feature. You can access the "Post" feature from the forum.',
         ]);
 
         Faq::create([

@@ -89,7 +89,7 @@ class AdminController extends Controller
                     'stat' => $totalPostsCount,
                     'change' => $newPostsCount,
                     'perDay' => $postsPerDay,
-                    'route' => 'dashboard',
+                    'route' => 'forum',
                 ],
                 'prompts' => [
                     'title' => 'Total Prompts',

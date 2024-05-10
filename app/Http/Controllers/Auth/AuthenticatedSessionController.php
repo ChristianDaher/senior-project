@@ -36,7 +36,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('forum', absolute: false));
     }
 
     /**
@@ -74,6 +74,6 @@ class AuthenticatedSessionController extends Controller
 
         Auth::login($user, true);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route('forum', absolute: false));
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{DashboardController, WelcomeController, ProfileController, AdminController, FaqController, UserController, PostController, PromptController, TagController};
+use App\Http\Controllers\{ForumController, WelcomeController, ProfileController, AdminController, FaqController, UserController, PostController, PromptController, TagController};
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('verified')->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/forum', [ForumController::class, 'index'])->name('forum');
 
 
         Route::prefix('/posts')->name('posts.')->group(function () {

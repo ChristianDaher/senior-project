@@ -10,9 +10,9 @@ import Landing from "@/Pages/Welcome/Partials/Landing.vue";
       <div class="flex items-center gap-4">
         <Link
           v-if="$page.props.auth.user"
-          :href="route('dashboard')"
+          :href="route('forum')"
           class="custom-transition hover:text-disabled-100 hover:underline"
-          >Dashboard</Link
+          >Forum</Link
         >
         <template v-else>
           <Link

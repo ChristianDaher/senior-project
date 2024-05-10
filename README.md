@@ -63,7 +63,7 @@ You should now be able to access the application at [localhost:8000](http://loca
 ### Completed Tasks
 - [x] All login flow done
 - [x] Edit/Delete your profile
-- [x] Render posts in dashboard
+- [x] Render posts in form
 - [x] Basic welcome page
 - [x] Way to create a post
 - [x] Way to delete your post
@@ -80,14 +80,15 @@ You should now be able to access the application at [localhost:8000](http://loca
 - [ ] ADMIN - Create/Update/Delete Tags 
 - [ ] ADMIN - Create/Update/Delete FAQs
 - [ ] Fix Prompt page design 
-- [ ] Paginate posts in dashboard and starred
-- [ ] Add Search by tag in dashboard
+- [ ] Paginate posts in form and starred
+- [ ] Add Search by tag in form
 - [ ] Add who and when a user published a post
 - [ ] Lazy load comments in a post
 - [ ] Design welcome page
-- [ ] Rename Dashboard to Forum
+- [x] Rename Dashboard to Forum
 - [ ] Add animations to the welcome page
 
 ### Low Priority Tasks
 - [ ] ADMIN - Edit Posts and show that it was edited
 - [ ] Fix email template designs
+- [ ] Users that sign in with google have a default password of "password"

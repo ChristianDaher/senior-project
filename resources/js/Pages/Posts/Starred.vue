@@ -42,7 +42,7 @@ function confirmDelete() {
 </script>
 
 <template>
-  <Head title="Dashboard" />
+  <Head title="Starred" />
   <AuthenticatedLayout>
     <template #header>
       <h2 class="font-semibold text-xl text-primary-100 leading-tight">

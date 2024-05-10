@@ -18,7 +18,7 @@ const props = defineProps({
   },
   backRoute: {
     type: String,
-    default: () => route("dashboard"),
+    default: () => route("forum"),
   },
 });
 
