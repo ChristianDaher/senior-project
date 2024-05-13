@@ -13,7 +13,7 @@ class PromptController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Prompts');
+        return Inertia::render('Prompts/Index');
     }
 
     public function adminIndex()
