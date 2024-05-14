@@ -16,7 +16,8 @@ const isSubmitDisabled = computed(() => {
 
 function submit() {
   isLoading.value = true;
-  response.value = null;
+  response.value = "";
+  errorMessage.value = "";
   axios
     .post(route("prompts.store.free"), { prompt: prompt.value })
     .then((res) => {
