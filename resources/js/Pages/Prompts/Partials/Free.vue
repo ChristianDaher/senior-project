@@ -13,6 +13,23 @@ const isLoading = ref(false);
 const isSubmitDisabled = computed(() => {
   return !prompt.value || isLoading.value;
 });
+
+function submit() {
+  isLoading.value = true;
+  response.value = null;
+  axios
+    .post(route("prompts.store.free"), { prompt: prompt.value })
+    .then((res) => {
+      response.value = res.data.response.text;
+      isNewlySubmitted.value = true;
+    })
+    .catch((error) => {
+      errorMessage.value = error.response.data.message;
+    })
+    .finally(() => {
+      isLoading.value = false;
+    });
+}
 </script>
 
 <template>
