@@ -48,6 +48,9 @@ const props = defineProps({
   step: {
     type: Number,
   },
+  autofocus: {
+    type: Boolean,
+  },
 });
 
 const id = props.id + Math.random().toString(36).substring(7);
@@ -75,7 +78,7 @@ const positionClasses = computed(() => {
       class="peer block w-full p-4 bg-base-100 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
       :class="positionClasses"
       v-model="model"
-      :autofocus="position === 'first' || position === 'alone'"
+      :autofocus="autofocus ?? (position === 'first' || position === 'alone')"
       required
       :autocomplete="autocomplete"
       @input="$emit('input')"
@@ -91,7 +94,7 @@ const positionClasses = computed(() => {
       class="peer block w-full p-4 bg-base-100 border-disabled-100 focus:relative focus:z-10 focus:border-accent-200 focus:ring-accent-200 custom-transition"
       :class="positionClasses"
       v-model="model"
-      :autofocus="position === 'first' || position === 'alone'"
+      :autofocus="autofocus ?? (position === 'first' || position === 'alone')"
       required
       :autocomplete="autocomplete"
       @input="$emit('input')"

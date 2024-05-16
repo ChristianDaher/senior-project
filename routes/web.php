@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 Route::get('/faq', [WelcomeController::class, 'faq'])->name('faq');
+Route::post('/contact', [WelcomeController::class, 'contact'])->name('contact')->middleware('throttle:2,1');
 
 Route::middleware('auth')->group(function () {
 

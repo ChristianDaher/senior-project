@@ -26,6 +26,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  autofocus: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const formKeys = Object.keys(props.form.data());
@@ -88,12 +92,13 @@ function triggeredInput(event, id) {
         :position="input.position"
         :autocomplete="input.autocomplete"
         @input="triggeredInput($event, input.id)"
+        :autofocus="autofocus"
       />
     </div>
     <slot name="before" />
     <slot name="main">
       <div
-      v-if="buttonStyle !== 'none'"
+        v-if="buttonStyle !== 'none'"
         :class="{
           'flex items-center mt-4':
             buttonStyle === 'end' || buttonStyle === 'start',
