@@ -33,7 +33,7 @@ const icons = [
     <h3 class="font-semibold leading-6 text-primary-100 mb-2 ml-1" v-if="when">
       {{ when }}
     </h3>
-    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 mb-4">
+    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 md:grid-cols-3 mb-4">
       <div
         v-for="(value, key, index) in stats"
         :key="key"
