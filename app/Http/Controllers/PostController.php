@@ -37,6 +37,7 @@ class PostController extends Controller
             if ($storage == 'local') {
                 $image_url = $image->storeAs('public/images', $filename);
                 $image_url = str_replace('public/', '/storage/', $image_url);
+                $image_url = asset($image_url); 
             }
             //fix here in case we use another storage system
         }

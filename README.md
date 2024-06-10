@@ -50,7 +50,12 @@ Before you begin, ensure you have met the following requirements:
 
 5. Update the database credentials in your .env file to match your local environment.
 
-6. Run the local development server and compile your assets:
+6. Link the assets storage to your local machine:
+   ```bash
+   php artisan storage:link
+   ```
+
+7. Run the local development server and compile your assets:
    ```bash
    php artisan serve
    npm run dev

@@ -134,7 +134,7 @@ const firstErrorMessage = computed(() => {
                     <!-- <p>or drag and drop</p> -->
                   </div>
                   <p class="text-xs leading-5 text-secondary-100">
-                    PNG, JPG and JPEG up to 10MB
+                    PNG, JPG and JPEG up to 1MB
                   </p>
                   <p
                     class="text-sm text-error-100 custom-transition hover:text-error-200 underline cursor-pointer"
