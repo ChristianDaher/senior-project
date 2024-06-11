@@ -77,7 +77,7 @@ const icons = [
             {{ value.change > 0 ? "+" : ""
             }}{{ new Intl.NumberFormat().format(value.change) }}
           </p>
-          <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
+          <!-- <div class="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
             <div class="text-sm" v-if="value.route">
               <Link
                 :href="route(value.route)"
@@ -87,7 +87,7 @@ const icons = [
                 ></Link
               >
             </div>
-          </div>
+          </div> -->
         </dd>
       </div>
     </dl>
