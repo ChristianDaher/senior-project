@@ -63,6 +63,16 @@ Before you begin, ensure you have met the following requirements:
 
 You should now be able to access the application at [localhost:8000](http://localhost:8000).
 
+## 🌟 Preview
+![welcome](./screenshots/welcome.png)
+![register](./screenshots/register.png)
+![dashboard](./screenshots/dashboard.png)
+![comments](./screenshots/comments.png)
+![create](./screenshots/create.png)
+![prediction](./screenshots/prediction.png)
+![statistics](./screenshots/statistics.png)
+
+
 ## 📝 Todo List
 
 ### Completed Tasks
